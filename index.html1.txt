@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BodyMind Academy - Transform Your Nervous System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+<!-- ===== NAVIGATION ===== -->
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="logo">
+            <i class="fas fa-brain"></i> BodyMind Academy
+        </div>
+        <ul class="nav-menu">
+            <li><a href="#home" class="nav-link">Home</a></li>
+            <li><a href="#courses" class="nav-link">Courses</a></li>
+            <li><a href="#anatomy" class="nav-link">Interactive Anatomy</a></li>
+            <li><a href="#pricing" class="nav-link">Pricing</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</nav>
+
+<!-- ===== PROGRESS BAR ===== -->
+<div class="progress-bar"></div>
+
+<!-- ===== HERO SECTION ===== -->
+<section id="home" class="hero">
+    <div class="hero-content">
+        <h1 class="hero-title">Transform Your Nervous System</h1>
+        <p class="hero-subtitle">Master Pain Science, Dopamine, Nervous System Regulation & Neuroplasticity</p>
+        <div class="hero-buttons">
+            <a href="#courses" class="btn btn-primary">Start Learning</a>
+            <a href="#pricing" class="btn btn-secondary">View Pricing</a>
+        </div>
+        <div class="hero-stats">
+            <div class="stat">
+                <h3>1000+</h3>
+                <p>Students</p>
+            </div>
+            <div class="stat">
+                <h3>4.9★</h3>
+                <p>Rating</p>
+            </div>
+            <div class="stat">
+                <h3>50+</h3>
+                <p>Videos</p>
+            </div>
+        </div>
+    </div>
+    <div class="hero-background">
+        <div class="animated-blob blob-1"></div>
+        <div class="animated-blob blob-2"></div>
+        <div class="animated-blob blob-3"></div>
+    </div>
+</section>
+
+<!-- ===== INTERACTIVE ANATOMY SECTION ===== -->
+<section id="anatomy" class="anatomy-section">
+    <div class="section-header">
+        <h2>Explore Your Body</h2>
+        <p>Click organs to learn how they affect your nervous system</p>
+    </div>
+
+    <div class="anatomy-container">
+        <!-- Anatomy wrapper -->
+        <div class="anatomy-wrapper">
+            <svg class="anatomy-svg" viewBox="0 0 200 400" xmlns="http://www.w3.org/2000/svg">
+                <!-- Head/Brain -->
+                <circle cx="100" cy="50" r="25" class="organ-shape brain-shape" data-organ="brain"/>
+                
+                <!-- Lungs -->
+                <ellipse cx="70" cy="120" rx="20" ry="35" class="organ-shape lungs-shape" data-organ="lungs"/>
+                <ellipse cx="130" cy="120" rx="20" ry="35" class="organ-shape lungs-shape" data-organ="lungs"/>
+                
+                <!-- Heart -->
+                <path d="M 100 130 Q 85 120 80 130 Q 75 140 100 155 Q 125 140 120 130 Q 115 120 100 130 Z" class="organ-shape heart-shape" data-organ="heart"/>
+                
+                <!-- Stomach -->
+                <ellipse cx="85" cy="180" rx="18" ry="25" class="organ-shape stomach-shape" data-organ="stomach"/>
+                
+                <!-- Liver -->
+                <ellipse cx="130" cy="180" rx="22" ry="28" class="organ-shape liver-shape" data-organ="liver"/>
+                
+                <!-- Spine -->
+                <line x1="100" y1="40" x2="100" y2="320" stroke="currentColor" stroke-width="8" class="organ-shape spine-shape" data-organ="spine"/>
+                
+                <!-- Neural pathways (glow) -->
+                <g class="neural-glow" opacity="0">
+                    <line x1="100" y1="75" x2="70" y2="120" stroke="#ffd700" stroke-width="2"/>
+                    <line x1="100" y1="75" x2="130" y2="120" stroke="#ffd700" stroke-width="2"/>
+                    <line x1="100" y1="75" x2="100" y2="130" stroke="#ffd700" stroke-width="2"/>
+                    <circle cx="100" cy="75" r="30" fill="none" stroke="#9333ea" stroke-width="1" opacity="0.3"/>
+                </g>
+            </svg>
+
+            <!-- Clickable organ zones -->
+            <div class="organ-zone brain-zone" data-organ="brain"></div>
+            <div class="organ-zone lungs-zone" data-organ="lungs"></div>
+            <div class="organ-zone heart-zone" data-organ="heart"></div>
+            <div class="organ-zone stomach-zone" data-organ="stomach"></div>
+            <div class="organ-zone liver-zone" data-organ="liver"></div>
+            <div class="organ-zone spine-zone" data-organ="spine"></div>
+        </div>
+
+        <!-- Scroll guide -->
+        <div class="scroll-guide">
+            📖 Scroll to discover • Click organs to learn
+        </div>
+    </div>
+
+    <!-- Organ info popup -->
+    <div id="organ-info" class="organ-popup hidden">
+        <button class="close-btn" onclick="closeOrganInfo()">✕</button>
+        <h3 id="organ-name"></h3>
+        <p id="organ-description"></p>
+        <div class="organ-fun-fact" id="organ-fun-fact"></div>
+    </div>
+
+    <!-- Content sections -->
+    <div class="anatomy-content">
+        <div class="content-block" data-organ="brain">
+            <div class="content-icon">🧠</div>
+            <h3>Brain & Nervous System</h3>
+            <p>Your brain regulates dopamine, motivation, and pleasure. Through neuroplasticity, you can rewire your brain's response to pain and stress. The brain is not fixed—it changes throughout your life based on your experiences and attention.</p>
+        </div>
+
+        <div class="content-block" data-organ="heart">
+            <div class="content-icon">❤️</div>
+            <h3>Heart & Vagal Tone</h3>
+            <p>Your heart communicates with your brain via the vagus nerve. Breathing exercises can activate the parasympathetic nervous system for calm. Heart rate variability is a key indicator of nervous system health and stress resilience.</p>
+        </div>
+
+        <div class="content-block" data-organ="lungs">
+            <div class="content-icon">💨</div>
+            <h3>Lungs & Respiratory Control</h3>
+            <p>Conscious breathing influences your nervous system state. Slow diaphragmatic breathing activates relaxation responses. A single breath can shift you from 'fight or flight' to 'rest and digest' mode.</p>
+        </div>
+
+        <div class="content-block" data-organ="liver">
+            <div class="content-icon">🔧</div>
+            <h3>Liver & Detoxification</h3>
+            <p>Your liver processes toxins and regulates metabolic processes. A healthy lifestyle supports optimal detoxification and energy production. Your liver is the only organ that can fully regenerate itself.</p>
+        </div>
+
+        <div class="content-block" data-organ="stomach">
+            <div class="content-icon">🫘</div>
+            <h3>Gut & Microbiome</h3>
+            <p>Your gut is your "second brain" connected to mood and immunity. The gut-brain axis influences pain perception. Your gut contains ~100 trillion microbes crucial for mental health.</p>
+        </div>
+
+        <div class="content-block" data-organ="spine">
+            <div class="content-icon">🦴</div>
+            <h3>Spine & Central Nervous System</h3>
+            <p>Your spine houses the central nervous system. Proper alignment and movement enhance nervous system function. Your spine has 33 vertebrae protecting your spinal cord connecting your brain to your entire body.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ===== COURSES SECTION ===== -->
+<section id="courses" class="courses-section">
+    <div class="section-header">
+        <h2>Master the Science of Your Body</h2>
+        <p>Comprehensive scrollytelling courses on pain, dopamine, and nervous system regulation</p>
+    </div>
+
+    <div class="courses-grid">
+        <div class="course-card">
+            <div class="course-icon">📚</div>
+            <h3>Pain Science 101</h3>
+            <p>Understand how pain is created in your nervous system and learn evidence-based strategies to manage chronic pain.</p>
+            <ul class="course-features">
+                <li>✓ Pain neuroscience basics</li>
+                <li>✓ Central sensitization</li>
+                <li>✓ Neuroplasticity techniques</li>
+                <li>✓ Interactive modules</li>
+            </ul>
+            <a href="#pricing" class="btn btn-small">Learn More</a>
+        </div>
+
+        <div class="course-card">
+            <div class="course-icon">🧬</div>
+            <h3>Dopamine Mastery</h3>
+            <p>Discover how dopamine drives motivation, pleasure, and reward. Learn to optimize it naturally.</p>
+            <ul class="course-features">
+                <li>✓ Dopamine pathways</li>
+                <li>✓ Reward systems</li>
+                <li>✓ Motivation hacks</li>
+                <li>✓ Reset protocols</li>
+            </ul>
+            <a href="#pricing" class="btn btn-small">Learn More</a>
+        </div>
+
+        <div class="course-card">
+            <div class="course-icon">🧘</div>
+            <h3>Nervous System Regulation</h3>
+            <p>Master techniques to shift your nervous system from stress to calm. Practical tools for daily life.</p>
+            <ul class="course-features">
+                <li>✓ Polyvagal theory</li>
+                <li>✓ Breathing techniques</li>
+                <li>✓ Grounding exercises</li>
+                <li>✓ Sleep optimization</li>
+            </ul>
+            <a href="#pricing" class="btn btn-small">Learn More</a>
+        </div>
+
+        <div class="course-card">
+            <div class="course-icon">🧠</div>
+            <h3>Neuroplasticity Masterclass</h3>
+            <p>Learn how to rewire your brain. Change habits, overcome limiting beliefs, and build new neural pathways.</p>
+            <ul class="course-features">
+                <li>✓ Neural rewiring</li>
+                <li>✓ Habit formation</li>
+                <li>✓ Mindfulness practices</li>
+                <li>✓ Advanced techniques</li>
+            </ul>
+            <a href="#pricing" class="btn btn-small">Learn More</a>
+        </div>
+    </div>
+</section>
+
+<!-- ===== PRICING SECTION ===== -->
+<section id="pricing" class="pricing-section">
+    <div class="section-header">
+        <h2>Choose Your Plan</h2>
+        <p>Access world-class nervous system education at your level</p>
+    </div>
+
+    <div class="pricing-grid">
+        <!-- FREE TIER -->
+        <div class="pricing-card">
+            <h3 class="tier-name">Free</h3>
+            <div class="tier-price">
+                <span class="currency">$</span>
+                <span class="amount">0</span>
+                <span class="period">/month</span>
+            </div>
+            <p class="tier-description">Get started with foundational knowledge</p>
+            <ul class="features-list">
+                <li>✓ 5 introductory videos</li>
+                <li>✓ Basic pain science module</li>
+                <li>✓ Community access</li>
+                <li>✗ Advanced courses</li>
+                <li>✗ 1-on-1 coaching</li>
+                <li>✗ Exclusive resources</li>
+            </ul>
+            <button class="btn btn-secondary full-width">Get Started</button>
+        </div>
+
+        <!-- PRO TIER -->
+        <div class="pricing-card featured">
+            <div class="badge">MOST POPULAR</div>
+            <h3 class="tier-name">Pro</h3>
+            <div class="tier-price">
+                <span class="currency">$</span>
+                <span class="amount">49</span>
+                <span class="period">/month</span>
+            </div>
+            <p class="tier-description">Full access to all courses and content</p>
+            <ul class="features-list">
+                <li>✓ All courses (50+ videos)</li>
+                <li>✓ Interactive anatomy explorer</li>
+                <li>✓ Downloadable resources</li>
+                <li>✓ Weekly live Q&A</li>
+                <li>✓ Community forum</li>
+                <li>✗ 1-on-1 coaching</li>
+            </ul>
+            <button class="btn btn-primary full-width">Subscribe Now</button>
+            <p class="save-text">Save 40% with annual plan</p>
+        </div>
+
+        <!-- PREMIUM TIER -->
+        <div class="pricing-card">
+            <h3 class="tier-name">Premium</h3>
+            <div class="tier-price">
+                <span class="currency">$</span>
+                <span class="amount">997</span>
+                <span class="period">one-time</span>
+            </div>
+            <p class="tier-description">Lifetime access + personal coaching</p>
+            <ul class="features-list">
+                <li>✓ Lifetime course access</li>
+                <li>✓ All Pro features</li>
+                <li>✓ 6 monthly 1-on-1 sessions</li>
+                <li>✓ Personalized protocols</li>
+                <li>✓ Priority support</li>
+                <li>✓ Certification program</li>
+            </ul>
+            <button class="btn btn-primary full-width">Get Premium</button>
+        </div>
+    </div>
+
+    <div class="pricing-faq">
+        <h3>Common Questions</h3>
+        <div class="faq-grid">
+            <div class="faq-item">
+                <h4>Can I upgrade anytime?</h4>
+                <p>Yes! Upgrade from Free to Pro or Premium anytime. Your progress is saved.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Is there a refund policy?</h4>
+                <p>30-day money-back guarantee on Pro subscriptions. Premium is non-refundable but lifetime.</p>
+            </div>
+            <div class="faq-item">
+                <h4>What payment methods are accepted?</h4>
+                <p>We accept credit cards, PayPal, and bank transfers. All payments are secure.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Do you offer team plans?</h4>
+                <p>Yes! Contact us at info@bodymindacademy.com for enterprise pricing.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== TESTIMONIALS ===== -->
+<section class="testimonials-section">
+    <div class="section-header">
+        <h2>What Our Students Say</h2>
+    </div>
+
+    <div class="testimonials-grid">
+        <div class="testimonial-card">
+            <div class="stars">★★★★★</div>
+            <p>"This course changed my understanding of pain. I've reduced my chronic pain by 60% in just 3 months!"</p>
+            <div class="testimonial-author">
+                <div class="avatar">SR</div>
+                <div>
+                    <h4>Sarah Rodriguez</h4>
+                    <p>Chronic Pain Sufferer</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="testimonial-card">
+            <div class="stars">★★★★★</div>
+            <p>"The dopamine module helped me break my social media addiction. Life-changing information presented beautifully."</p>
+            <div class="testimonial-author">
+                <div class="avatar">JK</div>
+                <div>
+                    <h4>James Kim</h4>
+                    <p>Software Engineer</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="testimonial-card">
+            <div class="stars">★★★★★</div>
+            <p>"The nervous system regulation techniques gave me tools I never had before. Finally can manage my anxiety!"</p>
+            <div class="testimonial-author">
+                <div class="avatar">MC</div>
+                <div>
+                    <h4>Maria Chen</h4>
+                    <p>Yoga Instructor</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== CONTACT SECTION ===== -->
+<section id="contact" class="contact-section">
+    <div class="section-header">
+        <h2>Get In Touch</h2>
+        <p>Questions? We'd love to hear from you</p>
+    </div>
+
+    <div class="contact-container">
+        <div class="contact-form">
+            <form id="contact-form">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea placeholder="Your Message" rows="5" required></textarea>
+                <button type="submit" class="btn btn-primary full-width">Send Message</button>
+            </form>
+        </div>
+
+        <div class="contact-info">
+            <div class="info-item">
+                <i class="fas fa-envelope"></i>
+                <div>
+                    <h4>Email</h4>
+                    <p><a href="mailto:info@bodymindacademy.com">info@bodymindacademy.com</a></p>
+                </div>
+            </div>
+
+            <div class="info-item">
+                <i class="fas fa-phone"></i>
+                <div>
+                    <h4>WhatsApp</h4>
+                    <p><a href="https://wa.me/96131234567">+961 31 234 567</a></p>
+                </div>
+            </div>
+
+            <div class="info-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <div>
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="https://instagram.com/yazanjafarir" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://youtube.com/@yazanjafarir" target="_blank"><i class="fab fa-youtube"></i></a>
+                        <a href="https://tiktok.com/@yazanjafarir" target="_blank"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+    <div class="footer-content">
+        <p>&copy; 2024 BodyMind Academy. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Disclaimer</a>
+        </div>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
