@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BodyMind Academy - 3D Anatomy</title>
+    <title>BodyMind Academy - Anatomical Explorer</title>
     <style>
         * {
             margin: 0;
@@ -12,165 +12,59 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0f1419 0%, #1a1f2e 50%, #0f1419 100%);
-            color: #e0e0e0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            color: #e0e7ff;
             overflow-x: hidden;
         }
 
-        #scrollProgressBar {
+        /* SCROLL PROGRESS BAR */
+        #scrollProgress {
             position: fixed;
             top: 0;
             left: 0;
             height: 3px;
-            background: linear-gradient(90deg, #7c3aed 0%, #ec4899 100%);
-            width: 0%;
+            background: linear-gradient(90deg, #ec4899, #7c3aed, #06b6d4);
             z-index: 1000;
+            transition: width 0.1s ease-out;
         }
 
-        #renderCanvas {
+        /* 3D CANVAS */
+        #canvas {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
+            width: 100vw;
             height: 100vh;
             z-index: 1;
+        }
+
+        /* CONTENT OVERLAY */
+        .content-wrapper {
+            position: relative;
+            z-index: 10;
             pointer-events: none;
         }
 
-        header {
-            background: rgba(15, 20, 25, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 1.5rem 2rem;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 500;
-            border-bottom: 1px solid rgba(124, 58, 237, 0.2);
+        .section {
+            height: 100vh;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #7c3aed 0%, #ec4899 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        nav {
-            display: flex;
-            gap: 2rem;
-        }
-
-        nav a {
-            color: #e0e0e0;
-            text-decoration: none;
-            transition: color 0.3s ease;
-            font-size: 0.95rem;
-        }
-
-        nav a:hover {
-            color: #7c3aed;
-        }
-
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
             justify-content: center;
-            align-items: center;
-            text-align: center;
-            position: relative;
-            z-index: 10;
             padding: 2rem;
-            margin-top: 80px;
-        }
-
-        .hero h1 {
-            font-size: clamp(2.5rem, 8vw, 4.5rem);
-            font-weight: 800;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, #7c3aed 0%, #ec4899 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1.2;
-        }
-
-        .hero p {
-            font-size: clamp(1rem, 3vw, 1.3rem);
-            color: #a0a0a0;
-            max-width: 600px;
-            margin-bottom: 2rem;
-            line-height: 1.6;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 1rem 2.5rem;
-            border: none;
-            border-radius: 50px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #7c3aed 0%, #ec4899 100%);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(124, 58, 237, 0.4);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            border: 2px solid #7c3aed;
-            color: #7c3aed;
-        }
-
-        .btn-secondary:hover {
-            background: rgba(124, 58, 237, 0.1);
-            transform: translateY(-3px);
-        }
-
-        .content-section {
-            position: relative;
-            z-index: 10;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 4rem 2rem;
+            pointer-events: auto;
         }
 
         .content-block {
-            background: rgba(26, 31, 46, 0.7);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(124, 58, 237, 0.3);
-            border-radius: 20px;
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 16px;
             padding: 3rem;
-            max-width: 700px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            max-width: 600px;
             opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
+            transform: translateY(20px);
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         .content-block.visible {
@@ -178,553 +72,399 @@
             transform: translateY(0);
         }
 
-        .content-block h2 {
+        h1 {
             font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #7c3aed 0%, #ec4899 100%);
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ec4899, #7c3aed);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
-        .content-block p {
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #06b6d4;
+        }
+
+        p {
             font-size: 1.1rem;
             line-height: 1.8;
-            color: #d0d0d0;
-            margin-bottom: 1.5rem;
+            color: #cbd5e1;
         }
 
-        .content-block ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .content-block li {
-            padding: 0.8rem 0;
-            padding-left: 1.5rem;
-            position: relative;
-            font-size: 1rem;
-            color: #b0b0b0;
-        }
-
-        .content-block li:before {
-            content: "→";
-            position: absolute;
-            left: 0;
-            color: #7c3aed;
-            font-weight: bold;
-        }
-
-        .pricing-section {
-            position: relative;
-            z-index: 10;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 4rem 2rem;
-        }
-
-        .pricing-section h2 {
-            font-size: 3rem;
-            margin-bottom: 4rem;
-            text-align: center;
-            background: linear-gradient(135deg, #7c3aed 0%, #ec4899 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .pricing-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            width: 100%;
-        }
-
-        .pricing-card {
-            background: rgba(26, 31, 46, 0.7);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(124, 58, 237, 0.3);
-            border-radius: 20px;
-            padding: 2.5rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        .pricing-card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .pricing-card:hover {
-            border-color: #7c3aed;
-            box-shadow: 0 15px 40px rgba(124, 58, 237, 0.2);
-            transform: translateY(-10px);
-        }
-
-        .pricing-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: #e0e0e0;
-        }
-
-        .pricing-card .price {
-            font-size: 2.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #7c3aed 0%, #ec4899 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin: 1rem 0;
-        }
-
-        .pricing-card ul {
-            list-style: none;
-            margin: 2rem 0;
-            text-align: left;
-        }
-
-        .pricing-card li {
-            padding: 0.7rem 0;
-            color: #a0a0a0;
-            font-size: 0.95rem;
-        }
-
-        .pricing-card li:before {
-            content: "✓";
-            color: #7c3aed;
-            font-weight: bold;
-            margin-right: 0.8rem;
-        }
-
-        footer {
-            background: rgba(15, 20, 25, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 3rem 2rem;
-            text-align: center;
-            border-top: 1px solid rgba(124, 58, 237, 0.2);
-            position: relative;
-            z-index: 10;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .footer-logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #7c3aed 0%, #ec4899 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 1.5rem;
-        }
-
-        .footer-contact {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            font-size: 0.95rem;
-        }
-
-        .footer-contact a {
-            color: #7c3aed;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-contact a:hover {
-            color: #ec4899;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin: 2rem 0;
-            flex-wrap: wrap;
-        }
-
-        .social-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 45px;
-            height: 45px;
-            background: rgba(124, 58, 237, 0.1);
-            border: 1px solid rgba(124, 58, 237, 0.3);
-            border-radius: 50%;
-            color: #7c3aed;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        .social-links a:hover {
-            background: #7c3aed;
+        .cta-button {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 12px 32px;
+            background: linear-gradient(135deg, #ec4899, #7c3aed);
             color: white;
-            transform: translateY(-5px);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            pointer-events: auto;
         }
 
-        .footer-bottom {
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(124, 58, 237, 0.2);
-            color: #707070;
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(236, 72, 153, 0.4);
+        }
+
+        /* INSTRUCTION TEXT */
+        .scroll-instruction {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 100;
+            pointer-events: none;
+            opacity: 0;
+            animation: fadeInOut 3s ease-in-out infinite;
+        }
+
+        .scroll-instruction p {
             font-size: 0.9rem;
+            color: #94a3b8;
         }
 
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        /* MOBILE RESPONSIVE */
         @media (max-width: 768px) {
-            nav {
-                gap: 1rem;
-                font-size: 0.85rem;
-            }
-
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .content-block {
-                padding: 1.5rem;
-            }
-
-            .content-block h2 {
-                font-size: 1.8rem;
-            }
-
-            .pricing-section h2 {
-                font-size: 2rem;
-            }
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.5rem; }
+            p { font-size: 1rem; }
+            .content-block { padding: 2rem; }
         }
     </style>
 </head>
 <body>
 
-    <div id="scrollProgressBar"></div>
-    <canvas id="renderCanvas"></canvas>
+<canvas id="canvas"></canvas>
 
-    <header>
-        <div class="logo">BodyMind Academy</div>
-        <nav>
-            <a href="#pain-science">Pain Science</a>
-            <a href="#dopamine">Dopamine</a>
-            <a href="#nervous-system">Nervous System</a>
-            <a href="#neuroplasticity">Neuroplasticity</a>
-            <a href="#pricing">Pricing</a>
-        </nav>
-    </header>
+<div id="scrollProgress"></div>
 
-    <section class="hero">
-        <h1>Transform Your Understanding of Movement & Pain</h1>
-        <p>Discover the science behind how your body, mind, and nervous system work together to create pain, movement, and healing.</p>
-        <div class="hero-buttons">
-            <a href="#pricing" class="btn btn-primary">Start Learning</a>
-            <a href="https://wa.me/961312342567" class="btn btn-secondary" target="_blank">Chat with Us</a>
-        </div>
-    </section>
-
-    <section class="content-section" id="pain-science">
+<div class="content-wrapper">
+    <div class="section">
         <div class="content-block">
-            <h2>Pain Science</h2>
-            <p>Pain is not simply a signal from injured tissue. It's a complex neuroscientific phenomenon created by your brain based on multiple inputs.</p>
-            <ul>
-                <li>How the brain constructs pain</li>
-                <li>The role of the nervous system</li>
-                <li>Why pain can persist without injury</li>
-                <li>Evidence-based pain management</li>
-            </ul>
+            <h1>Welcome to BodyMind Academy</h1>
+            <p>Explore the intricate systems that make you human. Scroll down to dissect the anatomy. Scroll up to reconstruct.</p>
+            <a href="#" class="cta-button">Start Learning</a>
         </div>
-    </section>
+    </div>
 
-    <section class="content-section" id="dopamine">
+    <div class="section">
         <div class="content-block">
-            <h2>Dopamine & Motivation</h2>
-            <p>Dopamine isn't just about pleasure. It's the neurotransmitter of motivation, focus, and drive that shapes your behavior and persistence.</p>
-            <ul>
-                <li>Dopamine cycles and motivation</li>
-                <li>How to optimize your dopamine baseline</li>
-                <li>The cost of artificial dopamine hits</li>
-                <li>Building sustainable drive</li>
-            </ul>
+            <h2>The Nervous System</h2>
+            <p>Golden pathways carry signals throughout your body. From brain to fingertips, the nervous system orchestrates every sensation and movement.</p>
         </div>
-    </section>
+    </div>
 
-    <section class="content-section" id="nervous-system">
+    <div class="section">
         <div class="content-block">
-            <h2>Nervous System Regulation</h2>
-            <p>Your autonomic nervous system controls your state. Learn to shift between sympathetic activation and parasympathetic rest for optimal function.</p>
-            <ul>
-                <li>Sympathetic vs. Parasympathetic</li>
-                <li>Polyvagal theory & social engagement</li>
-                <li>Techniques for nervous system reset</li>
-                <li>Building resilience through regulation</li>
-            </ul>
+            <h2>Muscular System</h2>
+            <p>Deep red layers of muscle fiber work in harmony, powered by oxygen and controlled by neural signals. Watch them reveal themselves.</p>
         </div>
-    </section>
+    </div>
 
-    <section class="content-section" id="neuroplasticity">
+    <div class="section">
         <div class="content-block">
-            <h2>Neuroplasticity</h2>
-            <p>Your brain is constantly rewiring itself. Understand how repetition, attention, and emotion reshape your neural pathways and create lasting change.</p>
-            <ul>
-                <li>How neurons wire together</li>
-                <li>Critical periods for learning</li>
-                <li>Creating lasting neural change</li>
-                <li>Breaking old patterns</li>
-            </ul>
+            <h2>Skeletal Framework</h2>
+            <p>Beneath the surface lies your structural foundation. Bones support, protect, and work with muscles for movement.</p>
         </div>
-    </section>
+    </div>
 
-    <section class="pricing-section" id="pricing">
-        <h2>Choose Your Learning Path</h2>
-        <div class="pricing-cards">
-            <div class="pricing-card">
-                <h3>Free</h3>
-                <div class="price">$0</div>
-                <ul>
-                    <li>Access to core pain science</li>
-                    <li>Basic nervous system overview</li>
-                    <li>Community forum access</li>
-                    <li>Weekly newsletter</li>
-                </ul>
-                <a href="#" class="btn btn-secondary">Get Started</a>
-            </div>
-
-            <div class="pricing-card">
-                <h3>Pro</h3>
-                <div class="price">$49<span style="font-size: 0.6em;">/month</span></div>
-                <ul>
-                    <li>All Free features</li>
-                    <li>Deep-dive video courses</li>
-                    <li>Interactive exercises</li>
-                    <li>Monthly live Q&A sessions</li>
-                    <li>Downloadable resources</li>
-                </ul>
-                <a href="#" class="btn btn-primary">Start Pro</a>
-            </div>
-
-            <div class="pricing-card">
-                <h3>Premium</h3>
-                <div class="price">$997<span style="font-size: 0.6em;">one-time</span></div>
-                <ul>
-                    <li>All Pro features</li>
-                    <li>1-on-1 coaching (3 sessions)</li>
-                    <li>Custom learning plan</li>
-                    <li>Lifetime access to all courses</li>
-                    <li>Priority support</li>
-                    <li>Exclusive masterclasses</li>
-                </ul>
-                <a href="#" class="btn btn-primary">Upgrade to Premium</a>
-            </div>
+    <div class="section">
+        <div class="content-block">
+            <h2>Integrated Systems</h2>
+            <p>Every system works together. This is how your body stays alive, learns, and thrives.</p>
+            <a href="https://yazanjafarir.github.io" class="cta-button">Back to Main</a>
         </div>
-    </section>
+    </div>
+</div>
 
-    <footer>
-        <div class="footer-content">
-            <div class="footer-logo">BodyMind Academy</div>
-            <div class="footer-contact">
-                <div>Email: <a href="mailto:info@bodymindacademy.com">info@bodymindacademy.com</a></div>
-                <div>WhatsApp: <a href="https://wa.me/961312342567" target="_blank">+961 31 234 567</a></div>
-            </div>
-            <div class="social-links">
-                <a href="https://instagram.com/yazanjafarir" target="_blank" title="Instagram">📷</a>
-                <a href="https://youtube.com/@yazanjafarir" target="_blank" title="YouTube">▶️</a>
-                <a href="https://tiktok.com/@yazanjafarir" target="_blank" title="TikTok">🎵</a>
-                <a href="https://wa.me/961312342567" target="_blank" title="WhatsApp">💬</a>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 BodyMind Academy. All rights reserved.</p>
-                <p>Transforming the understanding of pain, movement, and human potential.</p>
-            </div>
-        </div>
-    </footer>
+<div class="scroll-instruction">
+    <p>↓ Scroll to Explode | ↑ Scroll to Reconstruct ↑</p>
+</div>
 
-    <!-- Babylon.js -->
-    <script src="https://cdn.babylonjs.com/babylon.js"></script>
-    <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
-    <script src="https://cdn.babylonjs.com/postProcesses/babylon.colorCorrectionPostProcess.js"></script>
+<!-- THREE.JS CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@r128/examples/js/loaders/GLTFLoader.js"></script>
 
-    <script>
-        // ===== SCROLL PROGRESS BAR =====
-        const scrollProgressBar = document.getElementById('scrollProgressBar');
-        
-        window.addEventListener('scroll', () => {
-            const scrollPercentage = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-            scrollProgressBar.style.width = scrollPercentage + '%';
-        });
+<script>
+    // ============================================
+    // THREE.JS SETUP
+    // ============================================
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 10000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor(0x000000, 0);
+    renderer.shadowMap.enabled = true;
+    document.getElementById('canvas').replaceWith(renderer.domElement);
+    renderer.domElement.id = 'canvas';
 
-        // ===== BABYLON.JS 3D HUMAN BODY =====
-        const canvas = document.getElementById('renderCanvas');
-        const engine = new BABYLON.Engine(canvas, true);
+    camera.position.set(0, 0, 3);
 
-        async function createScene() {
-            const scene = new BABYLON.Scene(engine);
-            scene.clearColor = new BABYLON.Color4(0, 0, 0, 0);
+    // ============================================
+    // LIGHTING
+    // ============================================
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+    scene.add(ambientLight);
 
-            // Camera
-            const camera = new BABYLON.ArcRotateCamera("camera1", 0, Math.PI / 2.5, 8, new BABYLON.Vector3(0, 1, 0), scene);
-            camera.attachControl(canvas, false);
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+    directionalLight.position.set(5, 10, 7);
+    directionalLight.castShadow = true;
+    scene.add(directionalLight);
 
-            // Lighting
-            const light1 = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0.5, 1, 0.5), scene);
-            light1.intensity = 0.7;
+    const purpleLight = new THREE.PointLight(0x7c3aed, 1, 100);
+    purpleLight.position.set(-5, 5, 5);
+    scene.add(purpleLight);
 
-            const light2 = new BABYLON.PointLight("light2", new BABYLON.Vector3(-5, 5, 5), scene);
-            light2.intensity = 0.5;
-            light2.diffuse = new BABYLON.Color3(0.5, 0.2, 1);
+    const pinkLight = new THREE.PointLight(0xec4899, 1, 100);
+    pinkLight.position.set(5, 5, 5);
+    scene.add(pinkLight);
 
-            const light3 = new BABYLON.PointLight("light3", new BABYLON.Vector3(5, 5, -5), scene);
-            light3.intensity = 0.5;
-            light3.diffuse = new BABYLON.Color3(1, 0.2, 0.5);
-
-            // Create proper human anatomy
-            createHumanBody(scene);
-
-            return scene;
+    // ============================================
+    // PROCEDURAL ANATOMICAL MODEL
+    // ============================================
+    class AnatomicalBody {
+        constructor() {
+            this.group = new THREE.Group();
+            this.parts = [];
+            this.initialPositions = [];
+            this.buildBody();
         }
 
-        function createHumanBody(scene) {
-            // Torso (Rib cage + Abdomen)
-            const torso = BABYLON.MeshBuilder.CreateBox("torso", { width: 1, height: 2, depth: 0.6 }, scene);
-            torso.position.y = 1;
-            const torsoMat = new BABYLON.StandardMaterial("torsoMat", scene);
-            torsoMat.diffuse = new BABYLON.Color3(0.9, 0.3, 0.3);
-            torsoMat.specularColor = new BABYLON.Color3(0.5, 0, 0);
-            torso.material = torsoMat;
-
-            // Head
-            const head = BABYLON.MeshBuilder.CreateSphere("head", { diameter: 0.8, segments: 32 }, scene);
-            head.position.y = 2.5;
-            const headMat = new BABYLON.StandardMaterial("headMat", scene);
-            headMat.diffuse = new BABYLON.Color3(0.95, 0.8, 0.7);
-            headMat.specularColor = new BABYLON.Color3(0.3, 0.3, 0.3);
-            head.material = headMat;
-
-            // Left Arm
-            const leftArm = BABYLON.MeshBuilder.CreateBox("leftArm", { width: 0.3, height: 1.8, depth: 0.3 }, scene);
-            leftArm.position = new BABYLON.Vector3(-1, 1.2, 0);
-            leftArm.material = torsoMat;
-
-            // Right Arm
-            const rightArm = BABYLON.MeshBuilder.CreateBox("rightArm", { width: 0.3, height: 1.8, depth: 0.3 }, scene);
-            rightArm.position = new BABYLON.Vector3(1, 1.2, 0);
-            rightArm.material = torsoMat;
-
-            // Left Hand
-            const leftHand = BABYLON.MeshBuilder.CreateSphere("leftHand", { diameter: 0.35 }, scene);
-            leftHand.position = new BABYLON.Vector3(-1, 0.2, 0);
-            leftHand.material = headMat;
-
-            // Right Hand
-            const rightHand = BABYLON.MeshBuilder.CreateSphere("rightHand", { diameter: 0.35 }, scene);
-            rightHand.position = new BABYLON.Vector3(1, 0.2, 0);
-            rightHand.material = headMat;
-
-            // Left Leg
-            const leftLeg = BABYLON.MeshBuilder.CreateBox("leftLeg", { width: 0.35, height: 1.8, depth: 0.35 }, scene);
-            leftLeg.position = new BABYLON.Vector3(-0.4, -0.9, 0);
-            leftLeg.material = torsoMat;
-
-            // Right Leg
-            const rightLeg = BABYLON.MeshBuilder.CreateBox("rightLeg", { width: 0.35, height: 1.8, depth: 0.35 }, scene);
-            rightLeg.position = new BABYLON.Vector3(0.4, -0.9, 0);
-            rightLeg.material = torsoMat;
-
-            // Left Foot
-            const leftFoot = BABYLON.MeshBuilder.CreateBox("leftFoot", { width: 0.35, height: 0.3, depth: 0.6 }, scene);
-            leftFoot.position = new BABYLON.Vector3(-0.4, -1.8, 0.2);
-            leftFoot.material = headMat;
-
-            // Right Foot
-            const rightFoot = BABYLON.MeshBuilder.CreateBox("rightFoot", { width: 0.35, height: 0.3, depth: 0.6 }, scene);
-            rightFoot.position = new BABYLON.Vector3(0.4, -1.8, 0.2);
-            rightFoot.material = headMat;
-
-            // Store all body parts for animation
-            window.bodyParts = [torso, head, leftArm, rightArm, leftHand, rightHand, leftLeg, rightLeg, leftFoot, rightFoot];
+        buildBody() {
+            // SKULL
+            this.addPart('skull', new THREE.IcosahedronGeometry(0.35, 6), 0xf5a0a0, { x: 0, y: 1.5, z: 0 });
+            
+            // BRAIN (visible inside)
+            this.addPart('brain', new THREE.SphereGeometry(0.25, 16, 16), 0xe879f9, { x: 0, y: 1.5, z: 0 }, 0.7);
+            
+            // SPINAL CORD
+            this.addPart('spine', new THREE.CylinderGeometry(0.08, 0.08, 1.2, 8), 0xf5a0a0, { x: 0, y: 0.5, z: 0 });
+            
+            // UPPER TORSO
+            this.addPart('torsoUpper', new THREE.BoxGeometry(0.6, 0.6, 0.4), 0xc84545, { x: 0, y: 0.5, z: 0 });
+            
+            // LOWER TORSO
+            this.addPart('torsoLower', new THREE.BoxGeometry(0.55, 0.7, 0.35), 0xb83535, { x: 0, y: -0.4, z: 0 });
+            
+            // ORGANS (heart, lungs, liver)
+            this.addPart('heart', new THREE.SphereGeometry(0.12, 16, 16), 0xff4466, { x: -0.15, y: 0.6, z: 0.15 }, 0.8);
+            this.addPart('lungs', new THREE.BoxGeometry(0.35, 0.35, 0.2), 0xff6688, { x: 0, y: 0.6, z: 0.1 }, 0.6);
+            
+            // LEFT ARM UPPER
+            this.addPart('armLeftUpper', new THREE.CylinderGeometry(0.1, 0.09, 0.5, 8), 0xc84545, { x: -0.55, y: 0.7, z: 0 });
+            
+            // RIGHT ARM UPPER
+            this.addPart('armRightUpper', new THREE.CylinderGeometry(0.1, 0.09, 0.5, 8), 0xc84545, { x: 0.55, y: 0.7, z: 0 });
+            
+            // LEFT ARM LOWER
+            this.addPart('armLeftLower', new THREE.CylinderGeometry(0.08, 0.07, 0.45, 8), 0xb83535, { x: -0.75, y: 0.3, z: 0 });
+            
+            // RIGHT ARM LOWER
+            this.addPart('armRightLower', new THREE.CylinderGeometry(0.08, 0.07, 0.45, 8), 0xb83535, { x: 0.75, y: 0.3, z: 0 });
+            
+            // LEFT HAND
+            this.addPart('handLeft', new THREE.BoxGeometry(0.08, 0.15, 0.06), 0xf5a0a0, { x: -0.8, y: 0, z: 0 });
+            
+            // RIGHT HAND
+            this.addPart('handRight', new THREE.BoxGeometry(0.08, 0.15, 0.06), 0xf5a0a0, { x: 0.8, y: 0, z: 0 });
+            
+            // LEFT LEG UPPER
+            this.addPart('legLeftUpper', new THREE.CylinderGeometry(0.12, 0.11, 0.6, 8), 0xc84545, { x: -0.25, y: -1, z: 0 });
+            
+            // RIGHT LEG UPPER
+            this.addPart('legRightUpper', new THREE.CylinderGeometry(0.12, 0.11, 0.6, 8), 0xc84545, { x: 0.25, y: -1, z: 0 });
+            
+            // LEFT LEG LOWER
+            this.addPart('legLeftLower', new THREE.CylinderGeometry(0.1, 0.09, 0.6, 8), 0xb83535, { x: -0.25, y: -1.6, z: 0 });
+            
+            // RIGHT LEG LOWER
+            this.addPart('legRightLower', new THREE.CylinderGeometry(0.1, 0.09, 0.6, 8), 0xb83535, { x: 0.25, y: -1.6, z: 0 });
+            
+            // LEFT FOOT
+            this.addPart('footLeft', new THREE.BoxGeometry(0.1, 0.08, 0.25), 0xf5a0a0, { x: -0.25, y: -2, z: 0.05 });
+            
+            // RIGHT FOOT
+            this.addPart('footRight', new THREE.BoxGeometry(0.1, 0.08, 0.25), 0xf5a0a0, { x: 0.25, y: -2, z: 0.05 });
         }
 
-        let scene;
-        engine.runRenderLoop(async function () {
-            if (!scene) {
-                scene = await createScene();
-            }
-
-            // Continuous rotation
-            scene.meshes.forEach(mesh => {
-                if (mesh.name !== "camera1") {
-                    mesh.rotation.x += 0.002;
-                    mesh.rotation.y += 0.003;
-                }
+        addPart(name, geometry, color, position, opacity = 1) {
+            const material = new THREE.MeshStandardMaterial({
+                color: color,
+                metalness: 0.2,
+                roughness: 0.8,
+                transparent: opacity < 1,
+                opacity: opacity
             });
+            const mesh = new THREE.Mesh(geometry, material);
+            mesh.position.set(position.x, position.y, position.z);
+            mesh.castShadow = true;
+            mesh.receiveShadow = true;
+            mesh.userData.name = name;
+            mesh.userData.initialPos = { ...position };
+            
+            this.group.add(mesh);
+            this.parts.push(mesh);
+            this.initialPositions.push({ ...position });
+        }
 
-            scene.render();
-        });
+        // NEURAL NETWORK LINES
+        addNervousSystem() {
+            const nervePoints = [
+                // Brain to spine
+                { start: [0, 1.5, 0], end: [0, 1, 0] },
+                // Brain to arms
+                { start: [0, 1.5, 0], end: [-0.6, 0.7, 0] },
+                { start: [0, 1.5, 0], end: [0.6, 0.7, 0] },
+                // Brain to hands
+                { start: [0, 1.5, 0], end: [-0.8, 0, 0] },
+                { start: [0, 1.5, 0], end: [0.8, 0, 0] },
+                // Spine to legs
+                { start: [0, 0.5, 0], end: [-0.25, -1.6, 0] },
+                { start: [0, 0.5, 0], end: [0.25, -1.6, 0] },
+                // Torso branches
+                { start: [0, 0.5, 0], end: [-0.6, 0.5, 0.3] },
+                { start: [0, 0.5, 0], end: [0.6, 0.5, 0.3] },
+                // Heart neural pathways
+                { start: [-0.15, 0.6, 0.15], end: [0, 1, 0] },
+                // Additional nerve branches
+                { start: [-0.25, 0, 0], end: [-0.8, 0, 0] },
+                { start: [0.25, 0, 0], end: [0.8, 0, 0] },
+            ];
 
-        // Scroll-based effects
-        window.addEventListener('scroll', () => {
-            const scrollProgress = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
-
-            if (window.bodyParts) {
-                window.bodyParts.forEach((part, index) => {
-                    // Gradual separation
-                    const distance = scrollProgress * 2;
-                    const angle = (index / window.bodyParts.length) * Math.PI * 2;
-                    
-                    part.position.x += Math.cos(angle) * distance * 0.02;
-                    part.position.y += Math.sin(angle) * distance * 0.02;
-                    part.position.z += Math.cos(angle) * distance * 0.02;
-
-                    // Scale down
-                    const scale = 1 - scrollProgress * 0.3;
-                    part.scaling = new BABYLON.Vector3(scale, scale, scale);
+            nervePoints.forEach((nerve, index) => {
+                const points = [
+                    new THREE.Vector3(...nerve.start),
+                    new THREE.Vector3(...nerve.end)
+                ];
+                const geometry = new THREE.BufferGeometry().setFromPoints(points);
+                const material = new THREE.LineBasicMaterial({
+                    color: 0xffd700,
+                    linewidth: 2,
+                    emissive: 0xffaa00,
+                    transparent: true,
+                    opacity: 0.9
                 });
+                const line = new THREE.Line(geometry, material);
+                line.userData.isNerve = true;
+                this.group.add(line);
+            });
+        }
+
+        explode(amount) {
+            this.parts.forEach((part, index) => {
+                const initialPos = part.userData.initialPos;
+                const explosionVector = new THREE.Vector3(
+                    (Math.random() - 0.5) * 2,
+                    (Math.random() - 0.5) * 2,
+                    (Math.random() - 0.5) * 2
+                ).normalize();
+                
+                const distance = amount * (0.5 + index * 0.1);
+                
+                part.position.x = initialPos.x + explosionVector.x * distance;
+                part.position.y = initialPos.y + explosionVector.y * distance;
+                part.position.z = initialPos.z + explosionVector.z * distance;
+                
+                part.scale.set(1 - amount * 0.15, 1 - amount * 0.15, 1 - amount * 0.15);
+            });
+        }
+
+        reset() {
+            this.parts.forEach((part, index) => {
+                part.position.set(
+                    part.userData.initialPos.x,
+                    part.userData.initialPos.y,
+                    part.userData.initialPos.z
+                );
+                part.scale.set(1, 1, 1);
+            });
+        }
+    }
+
+    const body = new AnatomicalBody();
+    body.addNervousSystem();
+    scene.add(body.group);
+
+    // ============================================
+    // SCROLL HANDLING
+    // ============================================
+    let scrollProgress = 0;
+    let targetScroll = 0;
+    let lastScrollTime = 0;
+
+    window.addEventListener('scroll', () => {
+        const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+        targetScroll = window.scrollY / totalHeight;
+        lastScrollTime = Date.now();
+    });
+
+    // ============================================
+    // SCROLL PROGRESS BAR
+    // ============================================
+    window.addEventListener('scroll', () => {
+        const scrollPercentage = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+        document.getElementById('scrollProgress').style.width = scrollPercentage + '%';
+    });
+
+    // ============================================
+    // INTERSECTION OBSERVER FOR CONTENT
+    // ============================================
+    const contentBlocks = document.querySelectorAll('.content-block');
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
             }
         });
+    }, { threshold: 0.5 });
 
-        // Handle resize
-        window.addEventListener('resize', () => {
-            engine.resize();
-        });
+    contentBlocks.forEach(block => observer.observe(block));
 
-        // ===== CONTENT BLOCK ANIMATIONS =====
-        const observerOptions = {
-            threshold: 0.3,
-            rootMargin: '0px 0px -50px 0px'
-        };
+    // ============================================
+    // ANIMATION LOOP
+    // ============================================
+    function animate() {
+        requestAnimationFrame(animate);
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
+        // SMOOTH SCROLL INTERPOLATION
+        scrollProgress += (targetScroll - scrollProgress) * 0.05;
 
-        document.querySelectorAll('.content-block, .pricing-card').forEach(el => {
-            observer.observe(el);
-        });
+        // BODY ROTATION
+        body.group.rotation.x = scrollProgress * Math.PI * 0.5;
+        body.group.rotation.y = scrollProgress * Math.PI * 0.3;
 
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        });
-    </script>
+        // EXPLOSION EFFECT
+        body.explode(scrollProgress);
+
+        // CAMERA ZOOM ON EXPLOSION
+        camera.position.z = 3 + scrollProgress * 1.5;
+
+        renderer.render(scene, camera);
+    }
+
+    animate();
+
+    // ============================================
+    // RESPONSIVE RESIZE
+    // ============================================
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+</script>
 
 </body>
 </html>
