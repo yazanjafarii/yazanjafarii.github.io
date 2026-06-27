@@ -3,10 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NeuroRehab Academy - Brain Body Connection</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>NeuroRehab Academy - Transform Your Brain, Transform Your Life</title>
     <style>
         * {
             margin: 0;
@@ -14,32 +11,22 @@
             box-sizing: border-box;
         }
 
-        :root {
-            --primary: #6366f1;
-            --secondary: #ec4899;
-            --accent: #14b8a6;
-            --dark: #0f172a;
-            --light: #f8fafc;
-            --gray: #64748b;
-            --success: #10b981;
-        }
-
         body {
-            font-family: 'Inter', sans-serif;
-            background: var(--dark);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
             color: #e2e8f0;
+            line-height: 1.6;
             overflow-x: hidden;
-            scroll-behavior: smooth;
         }
 
-        /* ===== NAVBAR ===== */
+        /* Navigation */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
             background: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(10px);
-            padding: 1rem 2rem;
+            padding: 20px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -47,133 +34,99 @@
             border-bottom: 1px solid rgba(99, 102, 241, 0.2);
         }
 
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        nav .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            background-clip: text;
         }
 
-        .nav-links {
-            display: flex;
-            gap: 2rem;
+        nav ul {
             list-style: none;
+            display: flex;
+            gap: 30px;
         }
 
-        .nav-links a {
+        nav a {
             color: #cbd5e1;
             text-decoration: none;
-            font-size: 0.95rem;
-            transition: color 0.3s;
+            transition: color 0.3s ease;
             font-weight: 500;
         }
 
-        .nav-links a:hover {
-            color: var(--primary);
+        nav a:hover {
+            color: #6366f1;
         }
 
-        .social-icons {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .social-icons a {
-            width: 40px;
-            height: 40px;
-            background: rgba(99, 102, 241, 0.2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary);
-            text-decoration: none;
-            transition: all 0.3s;
-            font-size: 1.2rem;
-        }
-
-        .social-icons a:hover {
-            background: var(--primary);
-            color: white;
-            transform: translateY(-3px);
-        }
-
-        /* ===== HERO SECTION ===== */
+        /* Hero Section */
         .hero {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+            text-align: center;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            padding-top: 80px;
             position: relative;
             overflow: hidden;
-            margin-top: 60px;
         }
 
-        .hero-content {
-            text-align: center;
-            z-index: 10;
-            animation: fadeInUp 1s ease-out;
-        }
-
-        .hero h1 {
-            font-size: 4rem;
-            font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            color: var(--gray);
-            margin-bottom: 2rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.4);
-        }
-
-        .floating-brain {
+        .hero::before {
+            content: '';
             position: absolute;
-            width: 400px;
-            height: 400px;
-            right: 5%;
-            top: 50%;
-            transform: translateY(-50%);
-            opacity: 0.1;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
             animation: float 6s ease-in-out infinite;
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(-50%); }
-            50% { transform: translateY(-60%); }
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
         }
 
-        @keyframes fadeInUp {
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            padding: 40px;
+        }
+
+        .hero h1 {
+            font-size: 4.5em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: slideInDown 1s ease-out;
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero p {
+            font-size: 1.4em;
+            color: #cbd5e1;
+            margin-bottom: 30px;
+            animation: slideInUp 1s ease-out 0.2s both;
+        }
+
+        @keyframes slideInUp {
             from {
                 opacity: 0;
                 transform: translateY(30px);
@@ -184,635 +137,709 @@
             }
         }
 
-        /* ===== SCROLLYTELLING SECTION ===== */
-        .scroll-section {
-            position: relative;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, rgba(15, 23, 42, 1), rgba(30, 30, 60, 1));
-            overflow: hidden;
-        }
-
-        .scroll-content {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.8s ease;
-        }
-
-        .scroll-content.active {
-            opacity: 1;
-        }
-
-        .scroll-text {
-            max-width: 800px;
-            padding: 2rem;
-            text-align: center;
-            z-index: 10;
-        }
-
-        .scroll-text h2 {
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .scroll-text p {
-            font-size: 1.2rem;
-            line-height: 1.8;
-            color: #cbd5e1;
-            margin-bottom: 1rem;
-        }
-
-        .scroll-visual {
-            position: absolute;
-            width: 500px;
-            height: 500px;
-            right: 5%;
-            opacity: 0.8;
-        }
-
-        .scroll-visual svg {
-            width: 100%;
-            height: 100%;
-        }
-
-        /* ===== ANATOMICAL VISUALS ===== */
-        .brain-illustration {
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.2), transparent);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid var(--primary);
-            position: relative;
-        }
-
-        .brain-node {
-            width: 15px;
-            height: 15px;
-            background: var(--secondary);
-            border-radius: 50%;
-            position: absolute;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { 
-                r: 8px;
-                opacity: 1;
-            }
-            50% { 
-                r: 12px;
-                opacity: 0.5;
-            }
-        }
-
-        /* ===== DOPAMINE/SEROTONIN VISUAL ===== */
-        .neurotransmitter {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            gap: 2rem;
-        }
-
-        .molecule {
-            width: 150px;
-            height: 150px;
-            border: 3px solid var(--accent);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            animation: rotate 4s linear infinite;
-            position: relative;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .molecule::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border: 2px dashed var(--primary);
-            border-radius: 50%;
-            opacity: 0.5;
-            animation: rotate 8s linear infinite reverse;
-        }
-
-        /* ===== MUSCLE FIBER VISUAL ===== */
-        .muscle-fiber {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        .fiber-strand {
-            width: 100%;
-            max-width: 400px;
-            height: 40px;
-            background: linear-gradient(90deg, 
-                var(--primary) 0%, 
-                var(--secondary) 50%, 
-                var(--accent) 100%);
-            border-radius: 20px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .fiber-strand::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, 
-                transparent, 
-                rgba(255, 255, 255, 0.3), 
-                transparent);
-            animation: shimmer 2s infinite;
-        }
-
-        @keyframes shimmer {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
-
-        /* ===== NERVOUS SYSTEM VISUAL ===== */
-        .nervous-system {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2rem;
-        }
-
-        .nerve-node {
-            width: 60px;
-            height: 60px;
-            background: radial-gradient(circle, var(--secondary), var(--primary));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
             color: white;
+            text-decoration: none;
+            border-radius: 50px;
             font-weight: bold;
-            font-size: 2rem;
-            box-shadow: 0 0 30px rgba(99, 102, 241, 0.6);
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+            animation: slideInUp 1s ease-out 0.4s both;
         }
 
-        .nerve-line {
-            width: 3px;
-            height: 60px;
-            background: linear-gradient(180deg, var(--primary), var(--secondary));
-            animation: flowDown 1.5s ease-in-out infinite;
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.5);
         }
 
-        @keyframes flowDown {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
+        /* Pain Science Section */
+        .pain-science {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 40px;
+            background: linear-gradient(135deg, #1e1b4b 0%, #2d1b69 100%);
         }
 
-        /* ===== CARDS SECTION ===== */
-        .cards-section {
-            padding: 6rem 2rem;
-            background: var(--dark);
-        }
-
-        .section-title {
+        .section-content {
+            max-width: 900px;
             text-align: center;
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 4rem;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
+        .section-content h2 {
+            font-size: 3em;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .cards-grid {
+        .section-content p {
+            font-size: 1.2em;
+            color: #cbd5e1;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .info-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
         }
 
-        .card {
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(236, 72, 153, 0.1));
+        .info-card {
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            background: rgba(99, 102, 241, 0.2);
+            border-color: rgba(99, 102, 241, 0.6);
+            transform: translateY(-10px);
+        }
+
+        .info-card h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #6366f1;
+        }
+
+        .info-card p {
+            color: #94a3b8;
+        }
+
+        /* ========== DOPAMINE SECTION STYLES ========== */
+
+        .dopamine-section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            padding: 60px 20px;
+        }
+
+        .dopamine-container {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            height: 600px;
+        }
+
+        /* Brain background - stays in place */
+        .brain-background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.4;
+            z-index: 1;
+        }
+
+        .brain-svg {
+            width: 400px;
+            height: 400px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Dopamine content stays on top and visible */
+        .dopamine-content {
+            position: relative;
+            z-index: 10;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(10px);
             border: 1px solid rgba(99, 102, 241, 0.3);
             border-radius: 20px;
-            padding: 2rem;
-            transition: all 0.3s;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
+            padding: 50px 40px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
         }
 
-        .card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.3), transparent);
-            border-radius: 50%;
-            transition: all 0.3s;
+        .dopamine-content h2 {
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(236, 72, 153, 0.2));
-        }
-
-        .card:hover::before {
-            top: 0;
-            right: 0;
-        }
-
-        .card-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--light);
-        }
-
-        .card p {
-            color: var(--gray);
+        .dopamine-content p {
+            font-size: 1.2em;
+            color: #cbd5e1;
+            margin-bottom: 40px;
             line-height: 1.6;
         }
 
-        /* ===== FOOTER ===== */
-        footer {
-            background: rgba(15, 23, 42, 0.8);
-            border-top: 1px solid rgba(99, 102, 241, 0.2);
-            padding: 3rem 2rem;
-            text-align: center;
-            color: var(--gray);
+        .dopamine-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
         }
 
-        .footer-content {
+        .feature {
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .feature:hover {
+            background: rgba(99, 102, 241, 0.2);
+            border-color: rgba(99, 102, 241, 0.6);
+            transform: translateY(-5px);
+        }
+
+        .feature h4 {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            color: #6366f1;
+        }
+
+        .feature p {
+            font-size: 0.95em;
+            color: #94a3b8;
+            margin: 0;
+        }
+
+        /* Exploded view - only shows on scroll */
+        .dopamine-exploded {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px;
+            height: 500px;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 5;
+            transition: opacity 0.5s ease;
+        }
+
+        .dopamine-exploded.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .exploded-left {
+            animation: explode-left 2s ease-out forwards;
+        }
+
+        .exploded-right {
+            animation: explode-right 2s ease-out forwards;
+        }
+
+        @keyframes explode-left {
+            0% { transform: translate(0, 0); opacity: 0; }
+            100% { transform: translate(-80px, 0); opacity: 1; }
+        }
+
+        @keyframes explode-right {
+            0% { transform: translate(0, 0); opacity: 0; }
+            100% { transform: translate(80px, 0); opacity: 1; }
+        }
+
+        /* Nervous System Section */
+        .nervous-system {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 40px;
+            background: linear-gradient(135deg, #2d1b69 0%, #1e1b4b 100%);
+        }
+
+        /* Muscle Adaptation Section */
+        .muscle-adaptation {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 40px;
+            background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%);
+        }
+
+        /* Neuroplasticity Section */
+        .neuroplasticity {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 40px;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+        }
+
+        /* Pricing Section */
+        .pricing {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 40px;
+            background: linear-gradient(135deg, #1e1b4b 0%, #2d1b69 100%);
+        }
+
+        .pricing h2 {
+            font-size: 3em;
+            margin-bottom: 60px;
+            text-align: center;
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
             max-width: 1200px;
             margin: 0 auto;
         }
 
-        .footer-socials {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
+        .pricing-card {
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
         }
 
-        .footer-socials a {
-            width: 50px;
-            height: 50px;
+        .pricing-card:hover {
             background: rgba(99, 102, 241, 0.2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary);
+            border-color: rgba(99, 102, 241, 0.6);
+            transform: translateY(-15px);
+        }
+
+        .pricing-card.featured {
+            border: 2px solid #6366f1;
+            background: rgba(99, 102, 241, 0.15);
+            transform: scale(1.05);
+        }
+
+        .pricing-card h3 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            color: #6366f1;
+        }
+
+        .pricing-card .price {
+            font-size: 2.5em;
+            margin: 20px 0;
+            color: #a855f7;
+            font-weight: bold;
+        }
+
+        .pricing-card ul {
+            list-style: none;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .pricing-card li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+            color: #cbd5e1;
+        }
+
+        .pricing-card li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-card .cta-button {
+            margin-top: 30px;
+            display: inline-block;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(15, 23, 42, 0.95);
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 1px solid rgba(99, 102, 241, 0.2);
+            color: #94a3b8;
+        }
+
+        .social-links {
+            margin: 20px 0;
+        }
+
+        .social-links a {
+            color: #6366f1;
+            margin: 0 15px;
             text-decoration: none;
-            transition: all 0.3s;
-            font-size: 1.3rem;
+            transition: color 0.3s ease;
         }
 
-        .footer-socials a:hover {
-            background: var(--primary);
-            color: white;
-            transform: translateY(-5px);
+        .social-links a:hover {
+            color: #a855f7;
         }
 
-        /* ===== PROGRESS INDICATOR ===== */
-        .progress-bar {
-            position: fixed;
-            top: 60px;
-            left: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            z-index: 999;
-            transition: width 0.3s ease;
-            width: 0%;
+        .contact-info {
+            margin-top: 20px;
+            color: #cbd5e1;
         }
 
-        /* ===== RESPONSIVE ===== */
+        .contact-info a {
+            color: #6366f1;
+            text-decoration: none;
+        }
+
+        .contact-info a:hover {
+            color: #a855f7;
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+
             .hero h1 {
-                font-size: 2.5rem;
+                font-size: 2.5em;
             }
 
-            .scroll-text h2 {
-                font-size: 1.8rem;
+            .hero p {
+                font-size: 1.1em;
             }
 
-            .scroll-visual {
-                width: 300px;
-                height: 300px;
-                right: 0;
+            .section-content h2 {
+                font-size: 2em;
             }
 
-            .nav-links {
-                gap: 1rem;
+            .dopamine-content {
+                padding: 30px 20px;
             }
 
-            .floating-brain {
-                width: 200px;
-                height: 200px;
+            .dopamine-content h2 {
+                font-size: 2em;
+            }
+
+            .dopamine-content p {
+                font-size: 1em;
+            }
+
+            .brain-svg {
+                width: 250px;
+                height: 250px;
+            }
+
+            .dopamine-features {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing h2 {
+                font-size: 2em;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
             }
         }
     </style>
 </head>
 <body>
-    <!-- Progress Bar -->
-    <div class="progress-bar"></div>
-
-    <!-- Navbar -->
+    <!-- Navigation -->
     <nav>
-        <div class="logo">🧠 NeuroRehab</div>
-        <ul class="nav-links">
+        <div class="logo">🧠 NeuroRehab Academy</div>
+        <ul>
             <li><a href="#home">Home</a></li>
-            <li><a href="#education">Education</a></li>
-            <li><a href="#programs">Programs</a></li>
-            <li><a href="#community">Community</a></li>
+            <li><a href="#pain">Pain Science</a></li>
+            <li><a href="#dopamine">Dopamine</a></li>
+            <li><a href="#nervous">Nervous System</a></li>
+            <li><a href="#pricing">Pricing</a></li>
         </ul>
-        <div class="social-icons">
-            <a href="https://instagram.com" target="_blank" title="Instagram">📷</a>
-            <a href="https://tiktok.com" target="_blank" title="TikTok">🎵</a>
-        </div>
     </nav>
 
     <!-- Hero Section -->
     <section class="hero" id="home">
-        <svg class="floating-brain" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="50" cy="30" r="20" fill="currentColor" opacity="0.3"/>
-            <path d="M 30 50 Q 30 70 50 75 Q 70 70 70 50" fill="currentColor" opacity="0.2"/>
-            <circle cx="40" cy="50" r="8" fill="currentColor" opacity="0.25"/>
-            <circle cx="60" cy="50" r="8" fill="currentColor" opacity="0.25"/>
-        </svg>
-        
         <div class="hero-content">
-            <h1>Your Brain Controls<br>Your Body</h1>
-            <p>Understand the science of pain, movement, and recovery. Take control of your rehab journey.</p>
-            <button class="cta-button">Start Learning Free</button>
+            <h1>Transform Your Brain, Transform Your Life</h1>
+            <p>Master neuroscience-backed strategies to rewire your nervous system, overcome pain, and unlock your full potential.</p>
+            <a href="#pricing" class="cta-button">Start Your Journey</a>
         </div>
     </section>
 
-    <!-- Scrollytelling Sections -->
-    <div id="scrollytelling-container">
-        <!-- Section 1: Pain Science -->
-        <section class="scroll-section" data-section="0">
-            <div class="scroll-content">
-                <div class="scroll-text">
-                    <h2>🧠 Understanding Pain</h2>
-                    <p>Pain isn't what you think it is.</p>
-                    <p>Your brain doesn't simply receive pain signals from damaged tissue. Instead, it <strong>creates</strong> the sensation of pain based on a complex interpretation of danger.</p>
-                    <p>When you experience injury, your nervous system assesses the threat level and decides: "Should we create pain?" This is why two people with identical injuries can have completely different pain experiences.</p>
+    <!-- Pain Science Section -->
+    <section class="pain-science" id="pain">
+        <div class="section-content">
+            <h2>Pain Science: Rewire Your Perception</h2>
+            <p>Pain isn't just a physical sensation—it's a complex neurological experience. Modern pain science shows us that by understanding how your brain processes pain, you can dramatically reduce suffering and reclaim your life.</p>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>🧠 Central Sensitization</h3>
+                    <p>Learn how chronic pain amplifies in the nervous system and how to reset your pain threshold.</p>
                 </div>
-                <div class="scroll-visual">
-                    <div class="brain-illustration">
-                        <div class="brain-node" style="top: 30%; left: 20%; animation-delay: 0s;"></div>
-                        <div class="brain-node" style="top: 50%; left: 40%; animation-delay: 0.5s;"></div>
-                        <div class="brain-node" style="top: 70%; right: 20%; animation-delay: 1s;"></div>
+                <div class="info-card">
+                    <h3>🔄 Neural Plasticity</h3>
+                    <p>Your brain can rewire itself. Discover techniques to break painful neural pathways.</p>
+                </div>
+                <div class="info-card">
+                    <h3>💪 Graded Exposure</h3>
+                    <p>Safely rebuild confidence and reduce pain fear through evidence-based progressions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DOPAMINE SECTION - STAYS FIXED WITH ANATOMICAL BRAIN BACKGROUND -->
+    <section class="dopamine-section" id="dopamine">
+        <div class="dopamine-container">
+            
+            <!-- ANIMATED ANATOMICAL BRAIN BACKGROUND -->
+            <div class="brain-background">
+                <svg viewBox="0 0 400 400" class="brain-svg">
+                    <!-- Brain outline -->
+                    <defs>
+                        <linearGradient id="brainGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#6366f1;stop-opacity:0.3" />
+                            <stop offset="100%" style="stop-color:#a855f7;stop-opacity:0.3" />
+                        </linearGradient>
+                    </defs>
+                    
+                    <!-- Left hemisphere -->
+                    <path d="M 200 80 Q 150 100 140 160 Q 130 220 160 280 Q 180 300 200 310 L 200 80" 
+                          fill="url(#brainGradient)" stroke="#6366f1" stroke-width="2" opacity="0.8"/>
+                    
+                    <!-- Right hemisphere -->
+                    <path d="M 200 80 Q 250 100 260 160 Q 270 220 240 280 Q 220 300 200 310 L 200 80" 
+                          fill="url(#brainGradient)" stroke="#a855f7" stroke-width="2" opacity="0.8"/>
+                    
+                    <!-- Brain folds (gyri) -->
+                    <path d="M 160 140 Q 170 150 180 145" stroke="#6366f1" stroke-width="1.5" fill="none" opacity="0.6"/>
+                    <path d="M 170 160 Q 180 170 190 165" stroke="#a855f7" stroke-width="1.5" fill="none" opacity="0.6"/>
+                    <path d="M 180 190 Q 190 200 200 195" stroke="#6366f1" stroke-width="1.5" fill="none" opacity="0.6"/>
+                    
+                    <path d="M 240 140 Q 230 150 220 145" stroke="#a855f7" stroke-width="1.5" fill="none" opacity="0.6"/>
+                    <path d="M 230 160 Q 220 170 210 165" stroke="#6366f1" stroke-width="1.5" fill="none" opacity="0.6"/>
+                    <path d="M 220 190 Q 210 200 200 195" stroke="#a855f7" stroke-width="1.5" fill="none" opacity="0.6"/>
+                </svg>
+            </div>
+
+            <!-- DOPAMINE CONTENT (STAYS ON TOP) -->
+            <div class="dopamine-content">
+                <h2>Dopamine: Your Motivation Molecule</h2>
+                <p>Dopamine isn't just about feeling good—it's your brain's motivation and reward chemical. It drives you to take action, seek challenges, and accomplish goals.</p>
+                
+                <div class="dopamine-features">
+                    <div class="feature">
+                        <h4>🎯 Motivation</h4>
+                        <p>Dopamine pushes you toward your goals and makes effort feel rewarding.</p>
+                    </div>
+                    <div class="feature">
+                        <h4>🔄 Reward Cycle</h4>
+                        <p>Your brain releases dopamine when you achieve something, reinforcing success.</p>
+                    </div>
+                    <div class="feature">
+                        <h4>⚡ Energy & Focus</h4>
+                        <p>Low dopamine = fatigue and brain fog. High dopamine = unstoppable drive.</p>
                     </div>
                 </div>
             </div>
-        </section>
 
-        <!-- Section 2: Dopamine & Motivation -->
-        <section class="scroll-section" data-section="1">
-            <div class="scroll-content">
-                <div class="scroll-text">
-                    <h2>⚡ Dopamine: Your Motivation Molecule</h2>
-                    <p>Dopamine isn't about pleasure—it's about <strong>motivation and movement.</strong></p>
-                    <p>Low dopamine means: no drive to exercise, no urgency to rehabilitate, scrolling instead of stretching.</p>
-                    <p>When dopamine is high, you WANT to move. You're motivated. You stick to your rehab protocol. Your brain rewards consistency with motivation.</p>
-                    <p>The problem: Most people try to force themselves through low dopamine. This fails every time. Solution: Rebuild dopamine naturally through movement, cold exposure, and progressive challenges.</p>
-                </div>
-                <div class="scroll-visual">
-                    <div class="neurotransmitter">
-                        <div class="molecule" style="color: #fbbf24;">⚡</div>
-                        <div style="text-align: center; color: var(--gray);">Dopamine Baseline: ▓▓▓░░</div>
-                    </div>
-                </div>
+            <!-- EXPLODED VIEW ON SCROLL -->
+            <div class="dopamine-exploded" id="exploredView">
+                <svg viewBox="0 0 400 400" class="brain-svg exploded">
+                    <!-- Left hemisphere - exploded left -->
+                    <g class="exploded-left" transform="translate(-80, 0)">
+                        <path d="M 200 80 Q 150 100 140 160 Q 130 220 160 280 Q 180 300 200 310 L 200 80" 
+                              fill="url(#brainGradient)" stroke="#6366f1" stroke-width="2" opacity="0.8"/>
+                        <path d="M 160 140 Q 170 150 180 145" stroke="#6366f1" stroke-width="1.5" fill="none" opacity="0.6"/>
+                        <path d="M 170 160 Q 180 170 190 165" stroke="#a855f7" stroke-width="1.5" fill="none" opacity="0.6"/>
+                        <path d="M 180 190 Q 190 200 200 195" stroke="#6366f1" stroke-width="1.5" fill="none" opacity="0.6"/>
+                    </g>
+                    
+                    <!-- Right hemisphere - exploded right -->
+                    <g class="exploded-right" transform="translate(80, 0)">
+                        <path d="M 200 80 Q 250 100 260 160 Q 270 220 240 280 Q 220 300 200 310 L 200 80" 
+                              fill="url(#brainGradient)" stroke="#a855f7" stroke-width="2" opacity="0.8"/>
+                        <path d="M 240 140 Q 230 150 220 145" stroke="#a855f7" stroke-width="1.5" fill="none" opacity="0.6"/>
+                        <path d="M 230 160 Q 220 170 210 165" stroke="#6366f1" stroke-width="1.5" fill="none" opacity="0.6"/>
+                        <path d="M 220 190 Q 210 200 200 195" stroke="#a855f7" stroke-width="1.5" fill="none" opacity="0.6"/>
+                    </g>
+                </svg>
             </div>
-        </section>
 
-        <!-- Section 3: Nervous System Regulation -->
-        <section class="scroll-section" data-section="2">
-            <div class="scroll-content">
-                <div class="scroll-text">
-                    <h2>🔄 The Nervous System Hierarchy</h2>
-                    <p>Your nervous system has two modes:</p>
-                    <p><strong>Sympathetic (Fight/Flight):</strong> Mobilized, stressed, ready to move. Good for emergencies, bad for recovery.</p>
-                    <p><strong>Parasympathetic (Rest/Digest):</strong> Relaxed, healing, growth. This is where tissue repair happens.</p>
-                    <p>Most people are stuck in sympathetic dominance. Your body can't heal what it perceives as a threat. Paradox: You need to relax to recover from injury.</p>
-                </div>
-                <div class="scroll-visual">
-                    <div class="nervous-system">
-                        <div class="nerve-node">🧠</div>
-                        <div class="nerve-line"></div>
-                        <div class="nerve-node">❤️</div>
-                        <div class="nerve-line"></div>
-                        <div class="nerve-node">🫁</div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Section 4: Muscle Adaptation -->
-        <section class="scroll-section" data-section="3">
-            <div class="scroll-content">
-                <div class="scroll-text">
-                    <h2>💪 How Muscles Adapt</h2>
-                    <p>Your muscles don't grow in the gym—they grow <strong>during recovery.</strong></p>
-                    <p>When you exercise, you create microscopic damage. Your body then repairs this damage, making the muscle stronger. But here's the catch: This repair requires:</p>
-                    <p>✓ Adequate protein intake<br>✓ Quality sleep<br>✓ Low stress levels<br>✓ Proper nervous system state</p>
-                    <p>Skip any of these and your body never adapts. You stay weak, sore, and frustrated.</p>
+    <!-- Nervous System Section -->
+    <section class="nervous-system" id="nervous">
+        <div class="section-content">
+            <h2>Nervous System Regulation: Your Superpower</h2>
+            <p>A dysregulated nervous system creates pain, anxiety, and dysfunction. Learn the science of vagal tone, parasympathetic activation, and vagus nerve stimulation to achieve lasting calm and resilience.</p>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>🔴 Sympathetic vs Parasympathetic</h3>
+                    <p>Master the balance between activation and rest for optimal nervous system function.</p>
                 </div>
-                <div class="scroll-visual">
-                    <div class="muscle-fiber">
-                        <div style="color: var(--gray); margin-top: 1rem;">Muscle Fiber Activation</div>
-                        <div class="fiber-strand"></div>
-                        <div class="fiber-strand"></div>
-                        <div class="fiber-strand"></div>
-                    </div>
+                <div class="info-card">
+                    <h3>🌊 Vagal Tone</h3>
+                    <p>Strengthen your vagus nerve to enhance emotional regulation and reduce inflammation.</p>
+                </div>
+                <div class="info-card">
+                    <h3>🧘 Practical Techniques</h3>
+                    <p>Evidence-based breathing, cold exposure, and movement practices for instant regulation.</p>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Section 5: Movement & Neuroplasticity -->
-        <section class="scroll-section" data-section="4">
-            <div class="scroll-content">
-                <div class="scroll-text">
-                    <h2>🔗 Movement Rewires Your Brain</h2>
-                    <p>Every time you move, you're not just exercising muscles—you're building neural pathways.</p>
-                    <p>Your brain learns movement patterns. Repetition = deeper grooves in your neural network. This is why consistent, varied movement is more important than intense training.</p>
-                    <p>The brain adapts. Always. Given the right stimulus and recovery, your brain will rewire itself for better movement, less pain, and more capability.</p>
-                    <p>This is neuroplasticity. And it's your superpower in rehabilitation.</p>
+    <!-- Muscle Adaptation Section -->
+    <section class="muscle-adaptation" id="muscle">
+        <div class="section-content">
+            <h2>Muscle Adaptation: Build Unstoppable Strength</h2>
+            <p>Muscles adapt through progressive overload and intelligent training. Learn the neuromuscular principles behind hypertrophy, strength gains, and functional movement patterns.</p>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>💪 Progressive Overload</h3>
+                    <p>Strategic progression that keeps muscles growing and prevents plateaus.</p>
                 </div>
-                <div class="scroll-visual">
-                    <div style="display: flex; align-items: center; justify-content: center; flex-direction: column; height: 100%;">
-                        <div style="font-size: 4rem; margin-bottom: 2rem;">🧬</div>
-                        <div style="color: var(--accent); font-size: 1.2rem; text-align: center;">
-                            Your brain is plastic<br>
-                            <span style="color: var(--gray);">It changes with what you do</span>
-                        </div>
-                    </div>
+                <div class="info-card">
+                    <h3>⚡ Motor Unit Recruitment</h3>
+                    <p>Optimize your nervous system's ability to recruit muscle fibers for maximum strength.</p>
+                </div>
+                <div class="info-card">
+                    <h3>🔄 Recovery & Adaptation</h3>
+                    <p>Master the role of sleep, nutrition, and hormones in muscle development.</p>
                 </div>
             </div>
-        </section>
-    </div>
+        </div>
+    </section>
 
-    <!-- Education Cards -->
-    <section class="cards-section" id="education">
-        <h2 class="section-title">Core Topics</h2>
-        <div class="cards-grid">
-            <div class="card">
-                <div class="card-icon">🧠</div>
-                <h3>Pain Science</h3>
-                <p>Understanding how your brain processes pain, sensitization, fear-avoidance, and the role of perception in pain experience.</p>
+    <!-- Neuroplasticity Section -->
+    <section class="neuroplasticity" id="neuro">
+        <div class="section-content">
+            <h2>Neuroplasticity: Rewire Your Brain</h2>
+            <p>Your brain is not fixed. Through targeted practice, spaced repetition, and intentional neural pathways, you can overcome limitations and achieve extraordinary things.</p>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>🔄 Hebbian Learning</h3>
+                    <p>Neurons that fire together wire together. Use this principle to build powerful new habits.</p>
+                </div>
+                <div class="info-card">
+                    <h3>📈 Skill Acquisition</h3>
+                    <p>The neuroscience of learning shows the fastest path to mastery and peak performance.</p>
+                </div>
+                <div class="info-card">
+                    <h3>🎯 Brain Fitness</h3>
+                    <p>Just like muscles, your brain needs targeted training to grow stronger and more resilient.</p>
+                </div>
             </div>
-            <div class="card">
-                <div class="card-icon">🦾</div>
-                <h3>Motor Control</h3>
-                <p>Learn how your nervous system coordinates movement, builds motor patterns, and enables motor learning through neuroplasticity.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">💪</div>
-                <h3>Tissue Adaptation</h3>
-                <p>Discover how muscle, bone, and connective tissue respond to load, stress, and recovery through mechanotransduction.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">⚙️</div>
-                <h3>Biomechanics</h3>
-                <p>Master the kinetic chain, regional interdependence, and how movement mechanics influence pain and recovery.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">🔄</div>
-                <h3>Rehab Science</h3>
-                <p>Evidence-based rehabilitation strategies, overcoming kinesiophobia, and building sustainable recovery protocols.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">⚡</div>
-                <h3>Energy Systems</h3>
-                <p>Understand ATP, cellular energy, metabolism, and why you can't rehabilitate on an empty tank.</p>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div>
+            <h2>Choose Your Path to Transformation</h2>
+            <div class="pricing-grid">
+                <!-- Free Tier -->
+                <div class="pricing-card">
+                    <h3>🎓 Free</h3>
+                    <p>Start your journey with foundational content</p>
+                    <div class="price">$0</div>
+                    <ul>
+                        <li>✅ 5 Free Courses</li>
+                        <li>✅ Community Forum Access</li>
+                        <li>✅ Weekly Newsletter</li>
+                        <li>❌ No 1-on-1 Coaching</li>
+                        <li>❌ No Premium Modules</li>
+                    </ul>
+                    <a href="https://instagram.com/yazanjafarir" class="cta-button">Get Started</a>
+                </div>
+
+                <!-- Pro Tier -->
+                <div class="pricing-card featured">
+                    <h3>🚀 Pro</h3>
+                    <p>Advanced training and personalized support</p>
+                    <div class="price">$49/mo</div>
+                    <ul>
+                        <li>✅ All Free Tier Benefits</li>
+                        <li>✅ 50+ Advanced Courses</li>
+                        <li>✅ Live Monthly Workshops</li>
+                        <li>✅ Progress Tracking</li>
+                        <li>❌ Limited 1-on-1 Coaching</li>
+                    </ul>
+                    <a href="https://instagram.com/yazanjafarir" class="cta-button">Upgrade Now</a>
+                </div>
+
+                <!-- Premium Tier -->
+                <div class="pricing-card">
+                    <h3>👑 Premium</h3>
+                    <p>White-glove service with elite coaching</p>
+                    <div class="price">$997/mo</div>
+                    <ul>
+                        <li>✅ All Pro Tier Benefits</li>
+                        <li>✅ Unlimited 1-on-1 Coaching</li>
+                        <li>✅ Custom Program Design</li>
+                        <li>✅ Priority Support 24/7</li>
+                        <li>✅ Exclusive Masterclasses</li>
+                    </ul>
+                    <a href="https://instagram.com/yazanjafarir" class="cta-button">Become Elite</a>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <div class="footer-content">
-            <h2 style="color: var(--light); margin-bottom: 2rem;">Join Our Community</h2>
-            <div class="footer-socials">
-                <a href="https://instagram.com" target="_blank" title="Instagram">📷</a>
-                <a href="https://tiktok.com" target="_blank" title="TikTok">🎵</a>
-                <a href="https://youtube.com" target="_blank" title="YouTube">🎥</a>
-                <a href="https://twitter.com" target="_blank" title="Twitter">𝕏</a>
-            </div>
-            <p>&copy; 2024 NeuroRehab Academy. All rights reserved.</p>
-            <p style="margin-top: 1rem; font-size: 0.9rem;">Not medical advice. Consult healthcare professionals before starting new protocols.</p>
+        <p>&copy; 2024 NeuroRehab Academy. All rights reserved. Your Brain, Unlimited Potential.</p>
+        <div class="social-links">
+            <a href="https://instagram.com/yazanjafarir">📸 Instagram</a>
+            <a href="https://youtube.com/@yazanjafarir">🎥 YouTube</a>
+            <a href="https://tiktok.com/@yazanjafarir">🎵 TikTok</a>
+        </div>
+        <div class="contact-info">
+            <p>📧 Email: <a href="mailto:info@neurorehab.academy">info@neurorehab.academy</a></p>
+            <p>💬 WhatsApp: <a href="https://wa.me/9613123456">+961 31 234 56</a></p>
         </div>
     </footer>
 
     <script>
-        // ===== SCROLLYTELLING LOGIC =====
-        const sections = document.querySelectorAll('.scroll-section');
-        const scrollContent = document.querySelectorAll('.scroll-content');
-        let currentSection = 0;
-        let isScrolling = false;
-        let lastScrollTime = 0;
+        // ========== DOPAMINE EXPLODED VIEW ON SCROLL ==========
 
-        function showSection(index) {
-            scrollContent.forEach((content, i) => {
-                content.classList.remove('active');
-                if (i === index) {
-                    setTimeout(() => {
-                        content.classList.add('active');
-                    }, 100);
-                }
-            });
-        }
+        const dopamineSection = document.querySelector('.dopamine-section');
+        const exploredView = document.getElementById('exploredView');
 
-        showSection(0);
-
-        window.addEventListener('wheel', (e) => {
-            const now = Date.now();
-            
-            // Prevent excessive scrolling
-            if (now - lastScrollTime < 800) return;
-            
-            const scrollSections = document.querySelectorAll('.scroll-section');
-            const containerRect = document.getElementById('scrollytelling-container').getBoundingClientRect();
-            
-            // Check if we're in the scrollytelling section
-            if (containerRect.top <= window.innerHeight * 0.5 && containerRect.bottom >= window.innerHeight * 0.5) {
-                e.preventDefault();
-                
-                if (e.deltaY > 0 && currentSection < scrollContent.length - 1) {
-                    currentSection++;
-                    lastScrollTime = now;
-                    showSection(currentSection);
-                } else if (e.deltaY < 0 && currentSection > 0) {
-                    currentSection--;
-                    lastScrollTime = now;
-                    showSection(currentSection);
-                }
-            }
-        }, { passive: false });
-
-        // ===== PROGRESS BAR =====
         window.addEventListener('scroll', () => {
-            const scrollPercentage = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-            document.querySelector('.progress-bar').style.width = scrollPercentage + '%';
-        });
-
-        // ===== SMOOTH SCROLL FOR LINKS =====
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                const href = this.getAttribute('href');
-                if (href !== '#' && document.querySelector(href)) {
-                    e.preventDefault();
-                    document.querySelector(href).scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-
-        // ===== CARD HOVER EFFECTS =====
-        document.querySelectorAll('.card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-10px) scale(1.02)';
-            });
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) scale(1)';
-            });
+            if (!dopamineSection) return;
+            
+            const rect = dopamineSection.getBoundingClientRect();
+            const scrollPercent = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+            
+            // Show exploded view when user scrolls past 50% of section
+            if (scrollPercent > 0.5) {
+                exploredView.classList.add('show');
+            } else {
+                exploredView.classList.remove('show');
+            }
         });
     </script>
 </body>
