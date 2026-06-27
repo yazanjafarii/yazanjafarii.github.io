@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BodyMind Academy - Pain Science, Dopamine & Neuroplasticity</title>
-    <link rel="stylesheet" href="styles.css">
     <style>
         * {
             margin: 0;
@@ -32,23 +31,27 @@
             transition: width 0.1s ease-out;
         }
 
-        /* ===== ANATOMICAL BACKGROUND ===== */
+        /* ===== ANATOMICAL BACKGROUND CONTAINER ===== */
         #anatomyContainer {
             position: fixed;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
             width: 100%;
             height: 100%;
             pointer-events: none;
             z-index: 1;
-            opacity: 0.25;
         }
 
         #anatomySVG {
             width: 100%;
             height: 100%;
             object-fit: contain;
+        }
+
+        /* Individual particle styles for explosion */
+        .anatomy-particle {
+            position: fixed;
+            pointer-events: none;
         }
 
         /* ===== HEADER ===== */
@@ -438,215 +441,73 @@
             <!-- LAYER 1: FULL SKELETON & ORGANS (Macro) -->
             <g id="layer-1" class="anatomy-layer" opacity="1">
                 <!-- Skull -->
-                <ellipse cx="400" cy="120" rx="45" ry="55" fill="none" stroke="#7c3aed" stroke-width="1.5" opacity="0.6"/>
+                <ellipse cx="400" cy="120" rx="45" ry="55" fill="none" stroke="#7c3aed" stroke-width="1.5" opacity="0.6" class="particle" data-id="skull"/>
                 
                 <!-- Spine -->
-                <line x1="400" y1="175" x2="400" y2="600" stroke="#7c3aed" stroke-width="2" opacity="0.5"/>
-                <circle cx="400" cy="200" r="8" fill="none" stroke="#7c3aed" stroke-width="1" opacity="0.5"/>
-                <circle cx="400" cy="240" r="8" fill="none" stroke="#7c3aed" stroke-width="1" opacity="0.5"/>
-                <circle cx="400" cy="280" r="8" fill="none" stroke="#7c3aed" stroke-width="1" opacity="0.5"/>
-                <circle cx="400" cy="320" r="8" fill="none" stroke="#7c3aed" stroke-width="1" opacity="0.5"/>
-                <circle cx="400" cy="360" r="8" fill="none" stroke="#7c3aed" stroke-width="1" opacity="0.5"/>
-                <circle cx="400" cy="400" r="8" fill="none" stroke="#7c3aed" stroke-width="1" opacity="0.5"/>
-                <circle cx="400" cy="440" r="8" fill="none" stroke="#7c3aed" stroke-width="1" opacity="0.5"/>
-                <circle cx="400" cy="480" r="8" fill="none" stroke="#7c3aed" stroke-width="1" opacity="0.5"/>
-                <circle cx="400" cy="520" r="8" fill="none" stroke="#7c3aed" stroke-width="1" opacity="0.5"/>
-                <circle cx="400" cy="560" r="8" fill="none" stroke="#7c3aed" stroke-width="1" opacity="0.5"/>
+                <line x1="400" y1="175" x2="400" y2="600" stroke="#7c3aed" stroke-width="2" opacity="0.5" class="particle" data-id="spine"/>
+                <circle cx="400" cy="200" r="8" fill="none" stroke="#7c3aed" stroke-width="1" opacity="0.5" class="particle" data-id="vertebra"/>
+                <circle cx="400" cy="240" r="8" fill="none" stroke="#7c3aed" stroke-width="1" opacity="0.5" class="particle" data-id="vertebra"/>
+                <circle cx="400" cy="280" r="8" fill="none" stroke="#7c3aed" stroke-width="1" opacity="0.5" class="particle" data-id="vertebra"/>
+                <circle cx="400" cy="320" r="8" fill="none" stroke="#7c3aed" stroke-width="1" opacity="0.5" class="particle" data-id="vertebra"/>
+                <circle cx="400" cy="360" r="8" fill="none" stroke="#7c3aed" stroke-width="1" opacity="0.5" class="particle" data-id="vertebra"/>
                 
                 <!-- Ribcage -->
-                <path d="M 350 240 Q 300 280 320 340" fill="none" stroke="#7c3aed" stroke-width="1.5" opacity="0.5"/>
-                <path d="M 450 240 Q 500 280 480 340" fill="none" stroke="#7c3aed" stroke-width="1.5" opacity="0.5"/>
-                <path d="M 340 270 Q 280 310 300 370" fill="none" stroke="#7c3aed" stroke-width="1.5" opacity="0.5"/>
-                <path d="M 460 270 Q 520 310 500 370" fill="none" stroke="#7c3aed" stroke-width="1.5" opacity="0.5"/>
+                <path d="M 350 240 Q 300 280 320 340" fill="none" stroke="#7c3aed" stroke-width="1.5" opacity="0.5" class="particle" data-id="rib"/>
+                <path d="M 450 240 Q 500 280 480 340" fill="none" stroke="#7c3aed" stroke-width="1.5" opacity="0.5" class="particle" data-id="rib"/>
                 
-                <!-- Brain (simplified) -->
-                <ellipse cx="400" cy="100" rx="35" ry="40" fill="none" stroke="#ec4899" stroke-width="2" opacity="0.6"/>
-                <path d="M 380 85 Q 400 75 420 85" fill="none" stroke="#ec4899" stroke-width="1" opacity="0.5"/>
-                <path d="M 375 95 Q 400 90 425 95" fill="none" stroke="#ec4899" stroke-width="1" opacity="0.5"/>
-                <path d="M 380 110 Q 400 105 420 110" fill="none" stroke="#ec4899" stroke-width="1" opacity="0.5"/>
+                <!-- Brain -->
+                <ellipse cx="400" cy="100" rx="35" ry="40" fill="none" stroke="#ec4899" stroke-width="2" opacity="0.6" class="particle" data-id="brain"/>
                 
                 <!-- Heart -->
-                <path d="M 380 300 Q 400 290 420 300 L 400 340 Z" fill="none" stroke="#ec4899" stroke-width="2" opacity="0.6"/>
+                <path d="M 380 300 Q 400 290 420 300 L 400 340 Z" fill="none" stroke="#ec4899" stroke-width="2" opacity="0.6" class="particle" data-id="heart"/>
                 
                 <!-- Lungs -->
-                <ellipse cx="340" cy="300" rx="25" ry="50" fill="none" stroke="#7c3aed" stroke-width="1.5" opacity="0.5"/>
-                <ellipse cx="460" cy="300" rx="25" ry="50" fill="none" stroke="#7c3aed" stroke-width="1.5" opacity="0.5"/>
-                
-                <!-- Stomach -->
-                <path d="M 380 380 Q 420 400 400 450 Q 380 460 360 420 Z" fill="none" stroke="#7c3aed" stroke-width="1.5" opacity="0.5"/>
+                <ellipse cx="340" cy="300" rx="25" ry="50" fill="none" stroke="#7c3aed" stroke-width="1.5" opacity="0.5" class="particle" data-id="lung"/>
+                <ellipse cx="460" cy="300" rx="25" ry="50" fill="none" stroke="#7c3aed" stroke-width="1.5" opacity="0.5" class="particle" data-id="lung"/>
                 
                 <!-- Arms -->
-                <line x1="340" y1="240" x2="250" y2="280" stroke="#7c3aed" stroke-width="2" opacity="0.5"/>
-                <line x1="460" y1="240" x2="550" y2="280" stroke="#7c3aed" stroke-width="2" opacity="0.5"/>
+                <line x1="340" y1="240" x2="250" y2="280" stroke="#7c3aed" stroke-width="2" opacity="0.5" class="particle" data-id="arm"/>
+                <line x1="460" y1="240" x2="550" y2="280" stroke="#7c3aed" stroke-width="2" opacity="0.5" class="particle" data-id="arm"/>
                 
                 <!-- Legs -->
-                <line x1="380" y1="600" x2="360" y2="750" stroke="#7c3aed" stroke-width="2" opacity="0.5"/>
-                <line x1="420" y1="600" x2="440" y2="750" stroke="#7c3aed" stroke-width="2" opacity="0.5"/>
+                <line x1="380" y1="600" x2="360" y2="750" stroke="#7c3aed" stroke-width="2" opacity="0.5" class="particle" data-id="leg"/>
+                <line x1="420" y1="600" x2="440" y2="750" stroke="#7c3aed" stroke-width="2" opacity="0.5" class="particle" data-id="leg"/>
             </g>
 
-            <!-- LAYER 2: MUSCULAR SYSTEM & MUSCLE GROUPS -->
+            <!-- LAYER 2: MUSCULAR SYSTEM -->
             <g id="layer-2" class="anatomy-layer" opacity="0">
-                <!-- Trapezius -->
-                <path d="M 380 180 Q 350 220 360 280 L 440 280 Q 450 220 420 180 Z" fill="none" stroke="#ec4899" stroke-width="2" opacity="0.7"/>
-                
-                <!-- Pectoralis Major -->
-                <path d="M 360 240 Q 330 300 340 360 L 460 360 Q 470 300 440 240 Z" fill="none" stroke="#7c3aed" stroke-width="2" opacity="0.7"/>
-                
-                <!-- Rectus Abdominis -->
-                <line x1="385" y1="360" x2="385" y2="540" stroke="#ec4899" stroke-width="3" opacity="0.6"/>
-                <line x1="415" y1="360" x2="415" y2="540" stroke="#ec4899" stroke-width="3" opacity="0.6"/>
-                <line x1="395" y1="380" x2="405" y2="380" stroke="#7c3aed" stroke-width="1" opacity="0.5"/>
-                <line x1="395" y1="420" x2="405" y2="420" stroke="#7c3aed" stroke-width="1" opacity="0.5"/>
-                <line x1="395" y1="460" x2="405" y2="460" stroke="#7c3aed" stroke-width="1" opacity="0.5"/>
-                <line x1="395" y1="500" x2="405" y2="500" stroke="#7c3aed" stroke-width="1" opacity="0.5"/>
-                
-                <!-- Biceps -->
-                <ellipse cx="300" cy="320" rx="15" ry="40" fill="none" stroke="#ec4899" stroke-width="2" opacity="0.7"/>
-                <ellipse cx="500" cy="320" rx="15" ry="40" fill="none" stroke="#ec4899" stroke-width="2" opacity="0.7"/>
-                
-                <!-- Quadriceps -->
-                <path d="M 360 620 Q 355 680 350 750" fill="none" stroke="#ec4899" stroke-width="3" opacity="0.6"/>
-                <path d="M 400 620 Q 400 680 400 750" fill="none" stroke="#ec4899" stroke-width="3" opacity="0.6"/>
-                <path d="M 440 620 Q 445 680 450 750" fill="none" stroke="#ec4899" stroke-width="3" opacity="0.6"/>
-                
-                <!-- Deltoids -->
-                <ellipse cx="320" cy="240" rx="20" ry="30" fill="none" stroke="#7c3aed" stroke-width="2" opacity="0.6"/>
-                <ellipse cx="480" cy="240" rx="20" ry="30" fill="none" stroke="#7c3aed" stroke-width="2" opacity="0.6"/>
+                <!-- Muscles with particle class -->
+                <path d="M 380 180 Q 350 220 360 280 L 440 280 Q 450 220 420 180 Z" fill="none" stroke="#ec4899" stroke-width="2" opacity="0.7" class="particle" data-id="trapezius"/>
+                <path d="M 360 240 Q 330 300 340 360 L 460 360 Q 470 300 440 240 Z" fill="none" stroke="#7c3aed" stroke-width="2" opacity="0.7" class="particle" data-id="pecs"/>
+                <line x1="385" y1="360" x2="385" y2="540" stroke="#ec4899" stroke-width="3" opacity="0.6" class="particle" data-id="abs"/>
+                <line x1="415" y1="360" x2="415" y2="540" stroke="#ec4899" stroke-width="3" opacity="0.6" class="particle" data-id="abs"/>
+                <ellipse cx="300" cy="320" rx="15" ry="40" fill="none" stroke="#ec4899" stroke-width="2" opacity="0.7" class="particle" data-id="biceps"/>
+                <ellipse cx="500" cy="320" rx="15" ry="40" fill="none" stroke="#ec4899" stroke-width="2" opacity="0.7" class="particle" data-id="biceps"/>
             </g>
 
-            <!-- LAYER 3: MUSCLE FIBERS & MICROSTRUCTURE -->
+            <!-- LAYER 3: FIBERS -->
             <g id="layer-3" class="anatomy-layer" opacity="0">
-                <!-- Muscle fiber bundles (fascicles) -->
-                <g id="fiber-bundle-1">
-                    <line x1="380" y1="300" x2="420" y2="320" stroke="#ec4899" stroke-width="1.5" opacity="0.7"/>
-                    <line x1="385" y1="300" x2="425" y2="320" stroke="#ec4899" stroke-width="1.5" opacity="0.7"/>
-                    <line x1="390" y1="300" x2="430" y2="320" stroke="#ec4899" stroke-width="1.5" opacity="0.7"/>
-                    <line x1="375" y1="300" x2="415" y2="320" stroke="#ec4899" stroke-width="1.5" opacity="0.7"/>
-                    <line x1="395" y1="300" x2="435" y2="320" stroke="#ec4899" stroke-width="1.5" opacity="0.7"/>
-                </g>
-                
-                <!-- Individual myofibrils -->
-                <g id="myofibril-group">
-                    <line x1="360" y1="350" x2="440" y2="380" stroke="#7c3aed" stroke-width="1" opacity="0.6"/>
-                    <line x1="363" y1="350" x2="443" y2="380" stroke="#7c3aed" stroke-width="1" opacity="0.6"/>
-                    <line x1="366" y1="350" x2="446" y2="380" stroke="#7c3aed" stroke-width="1" opacity="0.6"/>
-                    <line x1="369" y1="350" x2="449" y2="380" stroke="#7c3aed" stroke-width="1" opacity="0.6"/>
-                    <line x1="372" y1="350" x2="452" y2="380" stroke="#7c3aed" stroke-width="1" opacity="0.6"/>
-                    <line x1="375" y1="350" x2="455" y2="380" stroke="#7c3aed" stroke-width="1" opacity="0.6"/>
-                    <line x1="378" y1="350" x2="458" y2="380" stroke="#7c3aed" stroke-width="1" opacity="0.6"/>
-                </g>
-                
-                <!-- Sarcomeres (Z-discs) -->
-                <g id="sarcomere-repeats" opacity="0.5">
-                    <line x1="350" y1="420" x2="450" y2="420" stroke="#ec4899" stroke-width="0.8" opacity="0.7"/>
-                    <circle cx="360" cy="420" r="2" fill="#ec4899" opacity="0.7"/>
-                    <circle cx="375" cy="420" r="2" fill="#ec4899" opacity="0.7"/>
-                    <circle cx="390" cy="420" r="2" fill="#ec4899" opacity="0.7"/>
-                    <circle cx="405" cy="420" r="2" fill="#ec4899" opacity="0.7"/>
-                    <circle cx="420" cy="420" r="2" fill="#ec4899" opacity="0.7"/>
-                    <circle cx="435" cy="420" r="2" fill="#ec4899" opacity="0.7"/>
-                    <circle cx="450" cy="420" r="2" fill="#ec4899" opacity="0.7"/>
-                </g>
+                <line x1="380" y1="300" x2="420" y2="320" stroke="#ec4899" stroke-width="1.5" opacity="0.7" class="particle" data-id="fiber"/>
+                <line x1="385" y1="300" x2="425" y2="320" stroke="#ec4899" stroke-width="1.5" opacity="0.7" class="particle" data-id="fiber"/>
+                <line x1="390" y1="300" x2="430" y2="320" stroke="#ec4899" stroke-width="1.5" opacity="0.7" class="particle" data-id="fiber"/>
+                <line x1="360" y1="350" x2="440" y2="380" stroke="#7c3aed" stroke-width="1" opacity="0.6" class="particle" data-id="myofibril"/>
+                <line x1="363" y1="350" x2="443" y2="380" stroke="#7c3aed" stroke-width="1" opacity="0.6" class="particle" data-id="myofibril"/>
             </g>
 
-            <!-- LAYER 4: CELLULAR LEVEL -->
+            <!-- LAYER 4: CELLS -->
             <g id="layer-4" class="anatomy-layer" opacity="0">
-                <!-- Cell membrane representation -->
-                <circle cx="400" cy="350" r="80" fill="none" stroke="#7c3aed" stroke-width="1" opacity="0.5"/>
-                
-                <!-- Nucleus -->
-                <circle cx="400" cy="350" r="35" fill="none" stroke="#ec4899" stroke-width="1.5" opacity="0.7"/>
-                <circle cx="400" cy="350" r="30" fill="none" stroke="#ec4899" stroke-width="0.5" opacity="0.5"/>
-                
-                <!-- Mitochondria -->
-                <ellipse cx="340" cy="300" rx="15" ry="25" fill="none" stroke="#7c3aed" stroke-width="1.5" opacity="0.7"/>
-                <line x1="340" y1="280" x2="340" y2="320" stroke="#7c3aed" stroke-width="0.8" opacity="0.6"/>
-                <line x1="345" y1="295" x2="335" y2="305" stroke="#7c3aed" stroke-width="0.8" opacity="0.6"/>
-                
-                <ellipse cx="460" cy="300" rx="15" ry="25" fill="none" stroke="#7c3aed" stroke-width="1.5" opacity="0.7"/>
-                <line x1="460" y1="280" x2="460" y2="320" stroke="#7c3aed" stroke-width="0.8" opacity="0.6"/>
-                <line x1="465" y1="295" x2="455" y2="305" stroke="#7c3aed" stroke-width="0.8" opacity="0.6"/>
-                
-                <ellipse cx="400" cy="280" rx="15" ry="25" fill="none" stroke="#7c3aed" stroke-width="1.5" opacity="0.7"/>
-                <line x1="400" y1="260" x2="400" y2="300" stroke="#7c3aed" stroke-width="0.8" opacity="0.6"/>
-                <line x1="405" y1="275" x2="395" y2="285" stroke="#7c3aed" stroke-width="0.8" opacity="0.6"/>
-                
-                <!-- Ribosomes -->
-                <circle cx="350" cy="400" r="3" fill="#ec4899" opacity="0.8"/>
-                <circle cx="365" cy="410" r="3" fill="#ec4899" opacity="0.8"/>
-                <circle cx="380" cy="405" r="3" fill="#ec4899" opacity="0.8"/>
-                <circle cx="420" cy="410" r="3" fill="#ec4899" opacity="0.8"/>
-                <circle cx="435" cy="405" r="3" fill="#ec4899" opacity="0.8"/>
-                <circle cx="450" cy="400" r="3" fill="#ec4899" opacity="0.8"/>
-                
-                <!-- Rough ER (endoplasmic reticulum) -->
-                <path d="M 320 380 Q 340 390 360 380" fill="none" stroke="#7c3aed" stroke-width="0.8" opacity="0.6"/>
-                <path d="M 440 380 Q 460 390 480 380" fill="none" stroke="#7c3aed" stroke-width="0.8" opacity="0.6"/>
-                
-                <!-- Golgi apparatus -->
-                <g id="golgi" opacity="0.7">
-                    <ellipse cx="400" cy="450" rx="20" ry="8" fill="none" stroke="#ec4899" stroke-width="1"/>
-                    <ellipse cx="400" cy="465" rx="20" ry="8" fill="none" stroke="#ec4899" stroke-width="1"/>
-                    <ellipse cx="400" cy="480" rx="20" ry="8" fill="none" stroke="#ec4899" stroke-width="1"/>
-                </g>
+                <circle cx="400" cy="350" r="80" fill="none" stroke="#7c3aed" stroke-width="1" opacity="0.5" class="particle" data-id="cell"/>
+                <circle cx="400" cy="350" r="35" fill="none" stroke="#ec4899" stroke-width="1.5" opacity="0.7" class="particle" data-id="nucleus"/>
+                <ellipse cx="340" cy="300" rx="15" ry="25" fill="none" stroke="#7c3aed" stroke-width="1.5" opacity="0.7" class="particle" data-id="mitochondria"/>
+                <ellipse cx="460" cy="300" rx="15" ry="25" fill="none" stroke="#7c3aed" stroke-width="1.5" opacity="0.7" class="particle" data-id="mitochondria"/>
             </g>
 
-            <!-- LAYER 5: MOLECULAR & PROTEIN STRUCTURES -->
+            <!-- LAYER 5: MOLECULAR -->
             <g id="layer-5" class="anatomy-layer" opacity="0">
-                <!-- ATP Synthase -->
-                <g id="atp-synthase" opacity="0.8">
-                    <circle cx="350" cy="300" r="8" fill="none" stroke="#7c3aed" stroke-width="1"/>
-                    <circle cx="350" cy="300" r="5" fill="none" stroke="#7c3aed" stroke-width="0.8"/>
-                    <line x1="345" y1="300" x2="360" y2="310" stroke="#ec4899" stroke-width="1"/>
-                    <line x1="355" y1="295" x2="365" y2="305" stroke="#ec4899" stroke-width="1"/>
-                </g>
-                
-                <!-- Protein channels -->
-                <g id="protein-channels" opacity="0.7">
-                    <circle cx="300" cy="350" r="6" fill="none" stroke="#7c3aed" stroke-width="1"/>
-                    <circle cx="300" cy="350" r="3" fill="#ec4899" opacity="0.8"/>
-                    
-                    <circle cx="400" cy="280" r="6" fill="none" stroke="#7c3aed" stroke-width="1"/>
-                    <circle cx="400" cy="280" r="3" fill="#ec4899" opacity="0.8"/>
-                    
-                    <circle cx="500" cy="350" r="6" fill="none" stroke="#7c3aed" stroke-width="1"/>
-                    <circle cx="500" cy="350" r="3" fill="#ec4899" opacity="0.8"/>
-                    
-                    <circle cx="380" cy="450" r="6" fill="none" stroke="#7c3aed" stroke-width="1"/>
-                    <circle cx="380" cy="450" r="3" fill="#ec4899" opacity="0.8"/>
-                    
-                    <circle cx="420" cy="450" r="6" fill="none" stroke="#7c3aed" stroke-width="1"/>
-                    <circle cx="420" cy="450" r="3" fill="#ec4899" opacity="0.8"/>
-                </g>
-                
-                <!-- DNA/RNA representation -->
-                <g id="dna-strand" opacity="0.6">
-                    <path d="M 300 200 Q 320 210 340 200 Q 360 190 380 200 Q 400 210 420 200 Q 440 190 460 200 Q 480 210 500 200" fill="none" stroke="#ec4899" stroke-width="1.5"/>
-                    <path d="M 300 205 Q 320 215 340 205 Q 360 195 380 205 Q 400 215 420 205 Q 440 195 460 205 Q 480 215 500 205" fill="none" stroke="#ec4899" stroke-width="1.5"/>
-                    
-                    <line x1="310" y1="202" x2="312" y2="203" stroke="#7c3aed" stroke-width="0.5" opacity="0.5"/>
-                    <line x1="330" y1="195" x2="332" y2="210" stroke="#7c3aed" stroke-width="0.5" opacity="0.5"/>
-                    <line x1="350" y1="202" x2="352" y2="203" stroke="#7c3aed" stroke-width="0.5" opacity="0.5"/>
-                    <line x1="370" y1="202" x2="372" y2="203" stroke="#7c3aed" stroke-width="0.5" opacity="0.5"/>
-                    <line x1="390" y1="202" x2="392" y2="203" stroke="#7c3aed" stroke-width="0.5" opacity="0.5"/>
-                    <line x1="410" y1="202" x2="412" y2="203" stroke="#7c3aed" stroke-width="0.5" opacity="0.5"/>
-                    <line x1="430" y1="202" x2="432" y2="203" stroke="#7c3aed" stroke-width="0.5" opacity="0.5"/>
-                    <line x1="450" y1="202" x2="452" y2="203" stroke="#7c3aed" stroke-width="0.5" opacity="0.5"/>
-                    <line x1="470" y1="202" x2="472" y2="203" stroke="#7c3aed" stroke-width="0.5" opacity="0.5"/>
-                </g>
-                
-                <!-- Electrons/ions representation -->
-                <g id="electron-flow" opacity="0.6">
-                    <circle cx="320" cy="400" r="2" fill="#7c3aed" opacity="0.8"/>
-                    <circle cx="340" cy="380" r="2" fill="#7c3aed" opacity="0.8"/>
-                    <circle cx="360" cy="420" r="2" fill="#7c3aed" opacity="0.8"/>
-                    <circle cx="380" cy="390" r="2" fill="#7c3aed" opacity="0.8"/>
-                    <circle cx="400" cy="410" r="2" fill="#7c3aed" opacity="0.8"/>
-                    <circle cx="420" cy="390" r="2" fill="#7c3aed" opacity="0.8"/>
-                    <circle cx="440" cy="420" r="2" fill="#7c3aed" opacity="0.8"/>
-                    <circle cx="460" cy="400" r="2" fill="#7c3aed" opacity="0.8"/>
-                    <circle cx="480" cy="380" r="2" fill="#7c3aed" opacity="0.8"/>
-                </g>
+                <circle cx="350" cy="300" r="8" fill="none" stroke="#7c3aed" stroke-width="1" class="particle" data-id="protein"/>
+                <circle cx="400" cy="280" r="6" fill="none" stroke="#7c3aed" stroke-width="1" class="particle" data-id="protein"/>
+                <circle cx="300" cy="350" r="6" fill="none" stroke="#7c3aed" stroke-width="1" class="particle" data-id="protein"/>
+                <circle cx="500" cy="350" r="6" fill="none" stroke="#7c3aed" stroke-width="1" class="particle" data-id="protein"/>
             </g>
         </svg>
     </div>
@@ -733,7 +594,6 @@
     <section class="pricing-section" id="pricing">
         <h2>Choose Your Learning Path</h2>
         <div class="pricing-cards">
-            <!-- Free Tier -->
             <div class="pricing-card">
                 <h3>Free</h3>
                 <div class="price">$0</div>
@@ -746,7 +606,6 @@
                 <a href="#" class="btn btn-secondary">Get Started</a>
             </div>
 
-            <!-- Pro Tier -->
             <div class="pricing-card">
                 <h3>Pro</h3>
                 <div class="price">$49<span style="font-size: 0.6em;">/month</span></div>
@@ -760,7 +619,6 @@
                 <a href="#" class="btn btn-primary">Start Pro</a>
             </div>
 
-            <!-- Premium Tier -->
             <div class="pricing-card">
                 <h3>Premium</h3>
                 <div class="price">$997<span style="font-size: 0.6em;">one-time</span></div>
@@ -807,8 +665,9 @@
             scrollProgressBar.style.width = scrollPercentage + '%';
         });
 
-        // ===== ANATOMICAL ZOOM & ROTATION =====
+        // ===== ANATOMICAL ZOOM, ROTATION & EXPLOSION =====
         const anatomySVG = document.getElementById('anatomySVG');
+        const anatomyContainer = document.getElementById('anatomyContainer');
         const layers = document.querySelectorAll('.anatomy-layer');
         
         window.addEventListener('scroll', () => {
@@ -817,13 +676,40 @@
             // Rotation (360 degrees over full scroll)
             const rotation = scrollProgress * 360;
             
-            // Zoom in from 1 to 1.5x over full scroll
+            // Zoom in from 1 to 1.5x
             const scale = 1 + (scrollProgress * 0.5);
             
-            anatomySVG.style.transform = `translate(-50%, -50%) rotate(${rotation}deg) scale(${scale})`;
+            // EXPLOSION EFFECT - particles spread outward after 70% scroll
+            if (scrollProgress > 0.7) {
+                const explosionIntensity = (scrollProgress - 0.7) / 0.3; // 0 to 1 over last 30%
+                anatomySVG.style.opacity = Math.max(0, 1 - explosionIntensity * 0.8);
+                
+                // Spread particles outward with increasing randomness
+                const particles = document.querySelectorAll('.particle');
+                particles.forEach((particle, index) => {
+                    const angle = (index / particles.length) * Math.PI * 2;
+                    const distance = explosionIntensity * 400;
+                    const translateX = Math.cos(angle) * distance;
+                    const translateY = Math.sin(angle) * distance;
+                    
+                    particle.style.transform = `translate(${translateX}px, ${translateY}px) scale(${1 + explosionIntensity * 0.5})`;
+                    particle.style.opacity = Math.max(0, 1 - explosionIntensity * 1.5);
+                });
+            } else {
+                // Normal zoom & rotation
+                anatomySVG.style.opacity = 0.25;
+                anatomySVG.style.transform = `translate(-50%, -50%) rotate(${rotation}deg) scale(${scale})`;
+                
+                // Reset particle positions
+                const particles = document.querySelectorAll('.particle');
+                particles.forEach(particle => {
+                    particle.style.transform = 'translate(0, 0) scale(1)';
+                    particle.style.opacity = '';
+                });
+            }
             
             // Layer visibility progression
-            const layerProgress = scrollProgress * 5; // 5 layers
+            const layerProgress = scrollProgress * 5;
             
             layers.forEach((layer, index) => {
                 const layerStart = index / 5;
