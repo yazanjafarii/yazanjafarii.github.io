@@ -3,431 +3,979 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BodyMind Academy - Transform Your Nervous System</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>BodyMind Academy - Pain Science & Neuroplasticity</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            color: #e0e7ff;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Scroll Progress Bar */
+        #scrollProgress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #6366f1, #ec4899);
+            width: 0%;
+            z-index: 1000;
+            transition: width 0.1s ease;
+        }
+
+        /* Animated Background Blobs */
+        .blob {
+            position: fixed;
+            border-radius: 50%;
+            opacity: 0.1;
+            z-index: -1;
+            filter: blur(80px);
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .blob-1 {
+            width: 300px;
+            height: 300px;
+            background: #6366f1;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .blob-2 {
+            width: 250px;
+            height: 250px;
+            background: #ec4899;
+            bottom: 20%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(30px, 30px); }
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 999;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #ec4899;
+            margin: 5px 0;
+            border-radius: 3px;
+            transition: 0.3s;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #6366f1, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #e0e7ff;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #ec4899;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 70px;
+            right: 0;
+            background: rgba(15, 23, 42, 0.95);
+            width: 100%;
+            flex-direction: column;
+            gap: 20px;
+            padding: 30px;
+            z-index: 99;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 120px 50px 50px;
+        }
+
+        .hero h1 {
+            font-size: 72px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #6366f1, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: #a5b4fc;
+            margin-bottom: 40px;
+            max-width: 600px;
+        }
+
+        .cta-button {
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #6366f1, #ec4899);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(236, 72, 153, 0.3);
+        }
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 60px;
+            max-width: 800px;
+        }
+
+        .stat-card {
+            background: rgba(99, 102, 241, 0.1);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-card h3 {
+            color: #ec4899;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .stat-card p {
+            color: #a5b4fc;
+            font-size: 14px;
+        }
+
+        /* Glassmorphism Blocks */
+        .content-block {
+            background: rgba(99, 102, 241, 0.05);
+            padding: 60px 50px;
+            margin: 40px 0;
+            border-radius: 16px;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .content-block h2 {
+            font-size: 42px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #6366f1, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .content-block p {
+            font-size: 16px;
+            color: #cbd5e1;
+            line-height: 1.8;
+        }
+
+        /* Interactive Anatomy SVG */
+        .anatomy-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 40px 0;
+            min-height: 500px;
+        }
+
+        .anatomy-svg {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+        }
+
+        .organ {
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .organ:hover {
+            filter: brightness(1.3);
+        }
+
+        .organ.active {
+            filter: brightness(1.5);
+            animation: pulse 0.6s ease-out;
+        }
+
+        @keyframes pulse {
+            0% {
+                filter: brightness(1.5);
+                stroke-width: 3;
+            }
+            100% {
+                filter: brightness(1);
+                stroke-width: 1;
+            }
+        }
+
+        /* Popup Modal */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(15, 23, 42, 0.95);
+            padding: 40px;
+            border-radius: 16px;
+            border: 2px solid #ec4899;
+            max-width: 500px;
+            z-index: 1001;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .popup.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translate(-50%, -60%);
+                opacity: 0;
+            }
+            to {
+                transform: translate(-50%, -50%);
+                opacity: 1;
+            }
+        }
+
+        .popup h3 {
+            color: #ec4899;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .popup p {
+            color: #cbd5e1;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .popup .fun-fact {
+            background: rgba(99, 102, 241, 0.2);
+            padding: 15px;
+            border-left: 3px solid #6366f1;
+            border-radius: 4px;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #a5b4fc;
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: #ec4899;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        /* Courses Section */
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .course-card {
+            background: rgba(99, 102, 241, 0.1);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            backdrop-filter: blur(10px);
+            transition: 0.3s;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            border-color: #ec4899;
+        }
+
+        .course-card h3 {
+            color: #ec4899;
+            margin-bottom: 15px;
+        }
+
+        .course-card p {
+            color: #cbd5e1;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Pricing Section */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .pricing-card {
+            background: rgba(99, 102, 241, 0.1);
+            padding: 40px;
+            border-radius: 12px;
+            border: 2px solid rgba(99, 102, 241, 0.3);
+            backdrop-filter: blur(10px);
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .pricing-card.featured {
+            border-color: #ec4899;
+            transform: scale(1.05);
+        }
+
+        .pricing-card h3 {
+            color: #ec4899;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .price {
+            font-size: 48px;
+            font-weight: bold;
+            color: #6366f1;
+            margin: 20px 0;
+        }
+
+        .pricing-card ul {
+            list-style: none;
+            margin: 30px 0;
+            text-align: left;
+            font-size: 14px;
+            color: #cbd5e1;
+        }
+
+        .pricing-card li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        /* Testimonials */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .testimonial-card {
+            background: rgba(99, 102, 241, 0.1);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .testimonial-card p {
+            color: #cbd5e1;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            color: #ec4899;
+            font-weight: bold;
+        }
+
+        .stars {
+            color: #fbbf24;
+            margin-bottom: 15px;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            max-width: 600px;
+            margin: 40px auto;
+            background: rgba(99, 102, 241, 0.1);
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #6366f1;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 6px;
+            color: #e0e7ff;
+            font-size: 14px;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #ec4899;
+            background: rgba(15, 23, 42, 0.8);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(15, 23, 42, 0.8);
+            padding: 40px;
+            text-align: center;
+            border-top: 1px solid rgba(99, 102, 241, 0.2);
+            margin-top: 60px;
+        }
+
+        .contact-info {
+            margin-bottom: 20px;
+            color: #cbd5e1;
+        }
+
+        .contact-info a {
+            color: #ec4899;
+            text-decoration: none;
+        }
+
+        .socials {
+            margin-top: 20px;
+        }
+
+        .socials a {
+            color: #6366f1;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero h1 {
+                font-size: 48px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 20px;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 100px 20px 50px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .content-block {
+                padding: 30px 20px;
+            }
+
+            .content-block h2 {
+                font-size: 28px;
+            }
+
+            .contact-form {
+                margin: 20px;
+                padding: 20px;
+            }
+
+            .popup {
+                margin: 20px;
+                max-width: 90%;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Scroll Progress Bar -->
+    <div id="scrollProgress"></div>
 
-<!-- ===== NAVIGATION ===== -->
-<nav class="navbar">
-    <div class="nav-container">
-        <div class="logo">
-            <i class="fas fa-brain"></i> BodyMind Academy
-        </div>
-        <ul class="nav-menu">
-            <li><a href="#home" class="nav-link">Home</a></li>
-            <li><a href="#courses" class="nav-link">Courses</a></li>
-            <li><a href="#anatomy" class="nav-link">Interactive Anatomy</a></li>
-            <li><a href="#pricing" class="nav-link">Pricing</a></li>
-            <li><a href="#contact" class="nav-link">Contact</a></li>
+    <!-- Background Blobs -->
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">BodyMind Academy</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#anatomy">Anatomy</a></li>
+            <li><a href="#courses">Courses</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#contact">Contact</a></li>
         </ul>
         <div class="hamburger">
             <span></span>
             <span></span>
             <span></span>
         </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <a href="#home">Home</a>
+        <a href="#anatomy">Anatomy</a>
+        <a href="#courses">Courses</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#contact">Contact</a>
     </div>
-</nav>
 
-<!-- ===== PROGRESS BAR ===== -->
-<div class="progress-bar"></div>
+    <!-- Overlay for Popup -->
+    <div class="overlay" id="overlay"></div>
 
-<!-- ===== HERO SECTION ===== -->
-<section id="home" class="hero">
-    <div class="hero-content">
-        <h1 class="hero-title">Transform Your Nervous System</h1>
-        <p class="hero-subtitle">Master Pain Science, Dopamine, Nervous System Regulation & Neuroplasticity</p>
-        <div class="hero-buttons">
-            <a href="#courses" class="btn btn-primary">Start Learning</a>
-            <a href="#pricing" class="btn btn-secondary">View Pricing</a>
-        </div>
-        <div class="hero-stats">
-            <div class="stat">
+    <!-- Popup Modal -->
+    <div class="popup" id="popup">
+        <button class="popup-close" onclick="closePopup()">×</button>
+        <h3 id="popupTitle">Brain</h3>
+        <p id="popupDescription">Description</p>
+        <div class="fun-fact" id="popupFunFact">Fun fact</div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <h1>Master Your Mind & Body</h1>
+        <p>Learn Pain Science, Dopamine Regulation, and Neuroplasticity through cutting-edge education</p>
+        <button class="cta-button" onclick="document.getElementById('courses').scrollIntoView({ behavior: 'smooth' })">Explore Courses</button>
+
+        <div class="stats">
+            <div class="stat-card">
                 <h3>1000+</h3>
-                <p>Students</p>
+                <p>Active Students</p>
             </div>
-            <div class="stat">
+            <div class="stat-card">
                 <h3>4.9★</h3>
-                <p>Rating</p>
+                <p>Average Rating</p>
             </div>
-            <div class="stat">
+            <div class="stat-card">
                 <h3>50+</h3>
-                <p>Videos</p>
+                <p>Video Lessons</p>
             </div>
         </div>
-    </div>
-    <div class="hero-background">
-        <div class="animated-blob blob-1"></div>
-        <div class="animated-blob blob-2"></div>
-        <div class="animated-blob blob-3"></div>
-    </div>
-</section>
+    </section>
 
-<!-- ===== INTERACTIVE ANATOMY SECTION ===== -->
-<section id="anatomy" class="anatomy-section">
-    <div class="section-header">
-        <h2>Explore Your Body</h2>
-        <p>Click organs to learn how they affect your nervous system</p>
-    </div>
+    <!-- Interactive Anatomy Section -->
+    <section class="content-block" id="anatomy">
+        <h2>Interactive Anatomy</h2>
+        <p>Click on any organ to learn more about how it affects your pain, mood, and overall well-being.</p>
 
-    <div class="anatomy-container">
-        <!-- Anatomy wrapper -->
-        <div class="anatomy-wrapper">
-            <svg class="anatomy-svg" viewBox="0 0 200 400" xmlns="http://www.w3.org/2000/svg">
-                <!-- Head/Brain -->
-                <circle cx="100" cy="50" r="25" class="organ-shape brain-shape" data-organ="brain"/>
-                
-                <!-- Lungs -->
-                <ellipse cx="70" cy="120" rx="20" ry="35" class="organ-shape lungs-shape" data-organ="lungs"/>
-                <ellipse cx="130" cy="120" rx="20" ry="35" class="organ-shape lungs-shape" data-organ="lungs"/>
-                
+        <div class="anatomy-container">
+            <svg class="anatomy-svg" viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
+                <!-- Brain -->
+                <ellipse class="organ" id="brain" cx="200" cy="80" rx="50" ry="60" fill="none" stroke="#6366f1" stroke-width="2" onclick="showPopup('brain')"/>
+
                 <!-- Heart -->
-                <path d="M 100 130 Q 85 120 80 130 Q 75 140 100 155 Q 125 140 120 130 Q 115 120 100 130 Z" class="organ-shape heart-shape" data-organ="heart"/>
-                
-                <!-- Stomach -->
-                <ellipse cx="85" cy="180" rx="18" ry="25" class="organ-shape stomach-shape" data-organ="stomach"/>
-                
+                <path class="organ" id="heart" d="M 200 150 C 200 150, 160 130, 140 160 C 120 190, 180 240, 200 260 C 220 240, 280 190, 260 160 C 240 130, 200 150, 200 150" fill="none" stroke="#ec4899" stroke-width="2" onclick="showPopup('heart')"/>
+
+                <!-- Lungs -->
+                <ellipse class="organ" id="lungs" cx="150" cy="220" rx="30" ry="50" fill="none" stroke="#a78bfa" stroke-width="2" onclick="showPopup('lungs')"/>
+                <ellipse class="organ" id="lungs2" cx="250" cy="220" rx="30" ry="50" fill="none" stroke="#a78bfa" stroke-width="2" onclick="showPopup('lungs')"/>
+
                 <!-- Liver -->
-                <ellipse cx="130" cy="180" rx="22" ry="28" class="organ-shape liver-shape" data-organ="liver"/>
-                
+                <rect class="organ" id="liver" x="220" y="280" width="80" height="50" rx="10" fill="none" stroke="#fbbf24" stroke-width="2" onclick="showPopup('liver')"/>
+
+                <!-- Stomach -->
+                <ellipse class="organ" id="stomach" cx="140" cy="320" rx="35" ry="45" fill="none" stroke="#10b981" stroke-width="2" onclick="showPopup('stomach')"/>
+
                 <!-- Spine -->
-                <line x1="100" y1="40" x2="100" y2="320" stroke="currentColor" stroke-width="8" class="organ-shape spine-shape" data-organ="spine"/>
-                
-                <!-- Neural pathways (glow) -->
-                <g class="neural-glow" opacity="0">
-                    <line x1="100" y1="75" x2="70" y2="120" stroke="#ffd700" stroke-width="2"/>
-                    <line x1="100" y1="75" x2="130" y2="120" stroke="#ffd700" stroke-width="2"/>
-                    <line x1="100" y1="75" x2="100" y2="130" stroke="#ffd700" stroke-width="2"/>
-                    <circle cx="100" cy="75" r="30" fill="none" stroke="#9333ea" stroke-width="1" opacity="0.3"/>
+                <g class="organ" id="spine" onclick="showPopup('spine')">
+                    <circle cx="200" cy="380" r="5" fill="none" stroke="#06b6d4" stroke-width="2"/>
+                    <circle cx="200" cy="395" r="5" fill="none" stroke="#06b6d4" stroke-width="2"/>
+                    <circle cx="200" cy="410" r="5" fill="none" stroke="#06b6d4" stroke-width="2"/>
+                    <circle cx="200" cy="425" r="5" fill="none" stroke="#06b6d4" stroke-width="2"/>
                 </g>
             </svg>
-
-            <!-- Clickable organ zones -->
-            <div class="organ-zone brain-zone" data-organ="brain"></div>
-            <div class="organ-zone lungs-zone" data-organ="lungs"></div>
-            <div class="organ-zone heart-zone" data-organ="heart"></div>
-            <div class="organ-zone stomach-zone" data-organ="stomach"></div>
-            <div class="organ-zone liver-zone" data-organ="liver"></div>
-            <div class="organ-zone spine-zone" data-organ="spine"></div>
         </div>
+    </section>
 
-        <!-- Scroll guide -->
-        <div class="scroll-guide">
-            📖 Scroll to discover • Click organs to learn
-        </div>
-    </div>
+    <!-- Courses Section -->
+    <section class="content-block" id="courses">
+        <h2>Our Courses</h2>
+        <p>Scientifically-designed courses to transform your understanding of the mind-body connection</p>
 
-    <!-- Organ info popup -->
-    <div id="organ-info" class="organ-popup hidden">
-        <button class="close-btn" onclick="closeOrganInfo()">✕</button>
-        <h3 id="organ-name"></h3>
-        <p id="organ-description"></p>
-        <div class="organ-fun-fact" id="organ-fun-fact"></div>
-    </div>
-
-    <!-- Content sections -->
-    <div class="anatomy-content">
-        <div class="content-block" data-organ="brain">
-            <div class="content-icon">🧠</div>
-            <h3>Brain & Nervous System</h3>
-            <p>Your brain regulates dopamine, motivation, and pleasure. Through neuroplasticity, you can rewire your brain's response to pain and stress. The brain is not fixed—it changes throughout your life based on your experiences and attention.</p>
-        </div>
-
-        <div class="content-block" data-organ="heart">
-            <div class="content-icon">❤️</div>
-            <h3>Heart & Vagal Tone</h3>
-            <p>Your heart communicates with your brain via the vagus nerve. Breathing exercises can activate the parasympathetic nervous system for calm. Heart rate variability is a key indicator of nervous system health and stress resilience.</p>
-        </div>
-
-        <div class="content-block" data-organ="lungs">
-            <div class="content-icon">💨</div>
-            <h3>Lungs & Respiratory Control</h3>
-            <p>Conscious breathing influences your nervous system state. Slow diaphragmatic breathing activates relaxation responses. A single breath can shift you from 'fight or flight' to 'rest and digest' mode.</p>
-        </div>
-
-        <div class="content-block" data-organ="liver">
-            <div class="content-icon">🔧</div>
-            <h3>Liver & Detoxification</h3>
-            <p>Your liver processes toxins and regulates metabolic processes. A healthy lifestyle supports optimal detoxification and energy production. Your liver is the only organ that can fully regenerate itself.</p>
-        </div>
-
-        <div class="content-block" data-organ="stomach">
-            <div class="content-icon">🫘</div>
-            <h3>Gut & Microbiome</h3>
-            <p>Your gut is your "second brain" connected to mood and immunity. The gut-brain axis influences pain perception. Your gut contains ~100 trillion microbes crucial for mental health.</p>
-        </div>
-
-        <div class="content-block" data-organ="spine">
-            <div class="content-icon">🦴</div>
-            <h3>Spine & Central Nervous System</h3>
-            <p>Your spine houses the central nervous system. Proper alignment and movement enhance nervous system function. Your spine has 33 vertebrae protecting your spinal cord connecting your brain to your entire body.</p>
-        </div>
-    </div>
-</section>
-
-<!-- ===== COURSES SECTION ===== -->
-<section id="courses" class="courses-section">
-    <div class="section-header">
-        <h2>Master the Science of Your Body</h2>
-        <p>Comprehensive scrollytelling courses on pain, dopamine, and nervous system regulation</p>
-    </div>
-
-    <div class="courses-grid">
-        <div class="course-card">
-            <div class="course-icon">📚</div>
-            <h3>Pain Science 101</h3>
-            <p>Understand how pain is created in your nervous system and learn evidence-based strategies to manage chronic pain.</p>
-            <ul class="course-features">
-                <li>✓ Pain neuroscience basics</li>
-                <li>✓ Central sensitization</li>
-                <li>✓ Neuroplasticity techniques</li>
-                <li>✓ Interactive modules</li>
-            </ul>
-            <a href="#pricing" class="btn btn-small">Learn More</a>
-        </div>
-
-        <div class="course-card">
-            <div class="course-icon">🧬</div>
-            <h3>Dopamine Mastery</h3>
-            <p>Discover how dopamine drives motivation, pleasure, and reward. Learn to optimize it naturally.</p>
-            <ul class="course-features">
-                <li>✓ Dopamine pathways</li>
-                <li>✓ Reward systems</li>
-                <li>✓ Motivation hacks</li>
-                <li>✓ Reset protocols</li>
-            </ul>
-            <a href="#pricing" class="btn btn-small">Learn More</a>
-        </div>
-
-        <div class="course-card">
-            <div class="course-icon">🧘</div>
-            <h3>Nervous System Regulation</h3>
-            <p>Master techniques to shift your nervous system from stress to calm. Practical tools for daily life.</p>
-            <ul class="course-features">
-                <li>✓ Polyvagal theory</li>
-                <li>✓ Breathing techniques</li>
-                <li>✓ Grounding exercises</li>
-                <li>✓ Sleep optimization</li>
-            </ul>
-            <a href="#pricing" class="btn btn-small">Learn More</a>
-        </div>
-
-        <div class="course-card">
-            <div class="course-icon">🧠</div>
-            <h3>Neuroplasticity Masterclass</h3>
-            <p>Learn how to rewire your brain. Change habits, overcome limiting beliefs, and build new neural pathways.</p>
-            <ul class="course-features">
-                <li>✓ Neural rewiring</li>
-                <li>✓ Habit formation</li>
-                <li>✓ Mindfulness practices</li>
-                <li>✓ Advanced techniques</li>
-            </ul>
-            <a href="#pricing" class="btn btn-small">Learn More</a>
-        </div>
-    </div>
-</section>
-
-<!-- ===== PRICING SECTION ===== -->
-<section id="pricing" class="pricing-section">
-    <div class="section-header">
-        <h2>Choose Your Plan</h2>
-        <p>Access world-class nervous system education at your level</p>
-    </div>
-
-    <div class="pricing-grid">
-        <!-- FREE TIER -->
-        <div class="pricing-card">
-            <h3 class="tier-name">Free</h3>
-            <div class="tier-price">
-                <span class="currency">$</span>
-                <span class="amount">0</span>
-                <span class="period">/month</span>
+        <div class="courses-grid">
+            <div class="course-card">
+                <h3>Pain Science 101</h3>
+                <p>Understand the neurobiology of pain and how your brain creates the pain experience. Learn proven strategies to manage chronic pain.</p>
             </div>
-            <p class="tier-description">Get started with foundational knowledge</p>
-            <ul class="features-list">
-                <li>✓ 5 introductory videos</li>
-                <li>✓ Basic pain science module</li>
-                <li>✓ Community access</li>
-                <li>✗ Advanced courses</li>
-                <li>✗ 1-on-1 coaching</li>
-                <li>✗ Exclusive resources</li>
-            </ul>
-            <button class="btn btn-secondary full-width">Get Started</button>
-        </div>
-
-        <!-- PRO TIER -->
-        <div class="pricing-card featured">
-            <div class="badge">MOST POPULAR</div>
-            <h3 class="tier-name">Pro</h3>
-            <div class="tier-price">
-                <span class="currency">$</span>
-                <span class="amount">49</span>
-                <span class="period">/month</span>
+            <div class="course-card">
+                <h3>Dopamine Mastery</h3>
+                <p>Master the science of motivation and reward. Optimize your dopamine system for sustained motivation and pleasure.</p>
             </div>
-            <p class="tier-description">Full access to all courses and content</p>
-            <ul class="features-list">
-                <li>✓ All courses (50+ videos)</li>
-                <li>✓ Interactive anatomy explorer</li>
-                <li>✓ Downloadable resources</li>
-                <li>✓ Weekly live Q&A</li>
-                <li>✓ Community forum</li>
-                <li>✗ 1-on-1 coaching</li>
-            </ul>
-            <button class="btn btn-primary full-width">Subscribe Now</button>
-            <p class="save-text">Save 40% with annual plan</p>
-        </div>
-
-        <!-- PREMIUM TIER -->
-        <div class="pricing-card">
-            <h3 class="tier-name">Premium</h3>
-            <div class="tier-price">
-                <span class="currency">$</span>
-                <span class="amount">997</span>
-                <span class="period">one-time</span>
+            <div class="course-card">
+                <h3>Nervous System Regulation</h3>
+                <p>Learn to control your autonomic nervous system. Techniques to shift from stress to calm, instantly.</p>
             </div>
-            <p class="tier-description">Lifetime access + personal coaching</p>
-            <ul class="features-list">
-                <li>✓ Lifetime course access</li>
-                <li>✓ All Pro features</li>
-                <li>✓ 6 monthly 1-on-1 sessions</li>
-                <li>✓ Personalized protocols</li>
-                <li>✓ Priority support</li>
-                <li>✓ Certification program</li>
-            </ul>
-            <button class="btn btn-primary full-width">Get Premium</button>
-        </div>
-    </div>
-
-    <div class="pricing-faq">
-        <h3>Common Questions</h3>
-        <div class="faq-grid">
-            <div class="faq-item">
-                <h4>Can I upgrade anytime?</h4>
-                <p>Yes! Upgrade from Free to Pro or Premium anytime. Your progress is saved.</p>
-            </div>
-            <div class="faq-item">
-                <h4>Is there a refund policy?</h4>
-                <p>30-day money-back guarantee on Pro subscriptions. Premium is non-refundable but lifetime.</p>
-            </div>
-            <div class="faq-item">
-                <h4>What payment methods are accepted?</h4>
-                <p>We accept credit cards, PayPal, and bank transfers. All payments are secure.</p>
-            </div>
-            <div class="faq-item">
-                <h4>Do you offer team plans?</h4>
-                <p>Yes! Contact us at info@bodymindacademy.com for enterprise pricing.</p>
+            <div class="course-card">
+                <h3>Neuroplasticity Masterclass</h3>
+                <p>Rewire your brain through targeted neuroplasticity exercises. Create new neural pathways for lasting change.</p>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- ===== TESTIMONIALS ===== -->
-<section class="testimonials-section">
-    <div class="section-header">
-        <h2>What Our Students Say</h2>
-    </div>
+    <!-- Pricing Section -->
+    <section class="content-block" id="pricing">
+        <h2>Simple Pricing</h2>
+        <p>Choose the plan that fits your learning journey</p>
 
-    <div class="testimonials-grid">
-        <div class="testimonial-card">
-            <div class="stars">★★★★★</div>
-            <p>"This course changed my understanding of pain. I've reduced my chronic pain by 60% in just 3 months!"</p>
-            <div class="testimonial-author">
-                <div class="avatar">SR</div>
-                <div>
-                    <h4>Sarah Rodriguez</h4>
-                    <p>Chronic Pain Sufferer</p>
-                </div>
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3>Free</h3>
+                <div class="price">$0</div>
+                <ul>
+                    <li>✓ 5 Sample Videos</li>
+                    <li>✓ Basic Anatomy Guide</li>
+                    <li>✓ Community Access</li>
+                    <li>✗ Full Courses</li>
+                </ul>
+                <button class="cta-button">Get Started</button>
+            </div>
+            <div class="pricing-card featured">
+                <h3>Pro</h3>
+                <div class="price">$49<span style="font-size: 18px;">/mo</span></div>
+                <ul>
+                    <li>✓ All Courses</li>
+                    <li>✓ Weekly Live Sessions</li>
+                    <li>✓ Private Community</li>
+                    <li>✓ Certification</li>
+                </ul>
+                <button class="cta-button">Start Free Trial</button>
+            </div>
+            <div class="pricing-card">
+                <h3>Premium</h3>
+                <div class="price">$997</div>
+                <ul>
+                    <li>✓ Everything in Pro</li>
+                    <li>✓ 1-on-1 Coaching</li>
+                    <li>✓ Lifetime Access</li>
+                    <li>✓ Custom Programs</li>
+                </ul>
+                <button class="cta-button">Get Premium</button>
             </div>
         </div>
+    </section>
 
-        <div class="testimonial-card">
-            <div class="stars">★★★★★</div>
-            <p>"The dopamine module helped me break my social media addiction. Life-changing information presented beautifully."</p>
-            <div class="testimonial-author">
-                <div class="avatar">JK</div>
-                <div>
-                    <h4>James Kim</h4>
-                    <p>Software Engineer</p>
-                </div>
+    <!-- Testimonials Section -->
+    <section class="content-block">
+        <h2>What Students Say</h2>
+        <p>Real feedback from real learners</p>
+
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p>"This course completely changed how I understand pain. My chronic back pain reduced by 60% in just 3 months!"</p>
+                <div class="testimonial-author">- Sarah Rodriguez, Physical Therapist</div>
+            </div>
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p>"The Dopamine Mastery course gave me real tools to manage my motivation. Life-changing!"</p>
+                <div class="testimonial-author">- James Kim, CEO</div>
+            </div>
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p>"Finally, science-backed content that makes sense. Highly recommend to anyone interested in neuroscience."</p>
+                <div class="testimonial-author">- Maria Chen, Healthcare Professional</div>
             </div>
         </div>
+    </section>
 
-        <div class="testimonial-card">
-            <div class="stars">★★★★★</div>
-            <p>"The nervous system regulation techniques gave me tools I never had before. Finally can manage my anxiety!"</p>
-            <div class="testimonial-author">
-                <div class="avatar">MC</div>
-                <div>
-                    <h4>Maria Chen</h4>
-                    <p>Yoga Instructor</p>
-                </div>
+    <!-- Contact Section -->
+    <section class="content-block" id="contact">
+        <h2>Get in Touch</h2>
+        <p>Questions? Reach out to us anytime</p>
+
+        <form class="contact-form" action="mailto:info@bodymindacademy.com" method="POST" enctype="text/plain">
+            <div class="form-group">
+                <label for="name">Your Name</label>
+                <input type="text" id="name" name="name" required>
             </div>
-        </div>
-    </div>
-</section>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" required></textarea>
+            </div>
+            <button type="submit" class="cta-button" style="width: 100%;">Send Message</button>
+        </form>
+    </section>
 
-<!-- ===== CONTACT SECTION ===== -->
-<section id="contact" class="contact-section">
-    <div class="section-header">
-        <h2>Get In Touch</h2>
-        <p>Questions? We'd love to hear from you</p>
-    </div>
-
-    <div class="contact-container">
-        <div class="contact-form">
-            <form id="contact-form">
-                <input type="text" placeholder="Your Name" required>
-                <input type="email" placeholder="Your Email" required>
-                <textarea placeholder="Your Message" rows="5" required></textarea>
-                <button type="submit" class="btn btn-primary full-width">Send Message</button>
-            </form>
-        </div>
-
+    <!-- Footer -->
+    <footer>
         <div class="contact-info">
-            <div class="info-item">
-                <i class="fas fa-envelope"></i>
-                <div>
-                    <h4>Email</h4>
-                    <p><a href="mailto:info@bodymindacademy.com">info@bodymindacademy.com</a></p>
-                </div>
-            </div>
-
-            <div class="info-item">
-                <i class="fas fa-phone"></i>
-                <div>
-                    <h4>WhatsApp</h4>
-                    <p><a href="https://wa.me/96131234567">+961 31 234 567</a></p>
-                </div>
-            </div>
-
-            <div class="info-item">
-                <i class="fas fa-map-marker-alt"></i>
-                <div>
-                    <h4>Follow Us</h4>
-                    <div class="social-links">
-                        <a href="https://instagram.com/yazanjafarir" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="https://youtube.com/@yazanjafarir" target="_blank"><i class="fab fa-youtube"></i></a>
-                        <a href="https://tiktok.com/@yazanjafarir" target="_blank"><i class="fab fa-tiktok"></i></a>
-                    </div>
-                </div>
-            </div>
+            <p><strong>Email:</strong> <a href="mailto:info@bodymindacademy.com">info@bodymindacademy.com</a></p>
+            <p><strong>WhatsApp:</strong> <a href="https://wa.me/96131234567">+961 31 234 567</a></p>
         </div>
-    </div>
-</section>
-
-<!-- ===== FOOTER ===== -->
-<footer class="footer">
-    <div class="footer-content">
-        <p>&copy; 2024 BodyMind Academy. All rights reserved.</p>
-        <div class="footer-links">
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Service</a>
-            <a href="#">Disclaimer</a>
+        <div class="socials">
+            <a href="https://instagram.com/yazanjafarir" target="_blank">Instagram</a>
+            <a href="https://twitter.com/yazanjafarir" target="_blank">Twitter</a>
+            <a href="https://linkedin.com/in/yazanjafarir" target="_blank">LinkedIn</a>
         </div>
-    </div>
-</footer>
+        <p style="margin-top: 20px; color: #64748b;">© 2024 BodyMind Academy. All rights reserved.</p>
+    </footer>
 
-<script src="script.js"></script>
+    <script>
+        // Scroll Progress Bar
+        window.addEventListener('scroll', () => {
+            const scrollPercentage = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            document.getElementById('scrollProgress').style.width = scrollPercentage + '%';
+        });
+
+        // Hamburger Menu Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const mobileMenu = document.querySelector('.mobile-menu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Close mobile menu when link clicked
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Organ Data
+        const organData = {
+            brain: {
+                title: 'Brain',
+                description: 'Your brain is the command center. It processes pain signals, generates emotions, and controls your entire body through neural networks.',
+                funFact: 'Fun Fact: The human brain contains approximately 86 billion neurons, each connected to thousands of others!'
+            },
+            heart: {
+                title: 'Heart',
+                description: 'The heart is not just a pump - it has its own "brain" with 40,000 neurons. It influences your emotional state and stress response.',
+                funFact: 'Fun Fact: Your heart communicates with your brain through the vagus nerve, affecting mood and anxiety levels.'
+            },
+            lungs: {
+                title: 'Lungs',
+                description: 'Breathing is your fastest tool to regulate your nervous system. Controlled breathing can shift you from stress to calm instantly.',
+                funFact: 'Fun Fact: You take approximately 23,000 breaths per day, each one an opportunity to regulate your nervous system.'
+            },
+            liver: {
+                title: 'Liver',
+                description: 'Your liver is your detox powerhouse. It filters toxins and plays a crucial role in regulating energy and metabolism.',
+                funFact: 'Fun Fact: The liver is the only organ that can regenerate itself, even if 75% is removed!'
+            },
+            stomach: {
+                title: 'Stomach & Gut',
+                description: 'Your gut is your "second brain" with 100 trillion microbes. It directly affects your mood, immunity, and pain perception.',
+                funFact: 'Fun Fact: Your gut produces 90% of your serotonin, the happiness neurotransmitter!'
+            },
+            spine: {
+                title: 'Spine',
+                description: 'Your spine is the information highway. It contains 33 vertebrae protecting critical nerves that connect your brain to your entire body.',
+                funFact: 'Fun Fact: Your spine has more sensory receptors than any other part of your body, making it highly sensitive to movement and position.'
+            }
+        };
+
+        // Show Popup
+        function showPopup(organ) {
+            const data = organData[organ];
+            if (!data) return;
+
+            document.getElementById('popupTitle').textContent = data.title;
+            document.getElementById('popupDescription').textContent = data.description;
+            document.getElementById('popupFunFact').textContent = data.funFact;
+            document.getElementById('popup').classList.add('active');
+            document.getElementById('overlay').classList.add('active');
+
+            // Activate organ animation
+            document.querySelectorAll('.organ').forEach(o => o.classList.remove('active'));
+            document.getElementById(organ).classList.add('active');
+        }
+
+        // Close Popup
+        function closePopup() {
+            document.getElementById('popup').classList.remove('active');
+            document.getElementById('overlay').classList.remove('active');
+            document.querySelectorAll('.organ').forEach(o => o.classList.remove('active'));
+        }
+
+        // Close popup when overlay clicked
+        document.getElementById('overlay').addEventListener('click', closePopup);
+
+        // Scroll-Triggered Organ Highlights (Intersection Observer)
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const sectionId = entry.target.id;
+                    const organMap = {
+                        'home': 'brain',
+                        'anatomy': 'heart',
+                        'courses': 'lungs',
+                        'pricing': 'liver',
+                        'contact': 'stomach'
+                    };
+
+                    document.querySelectorAll('.organ').forEach(o => o.classList.remove('active'));
+                    if (organMap[sectionId]) {
+                        document.getElementById(organMap[sectionId]).classList.add('active');
+                    }
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('section').forEach(section => observer.observe(section));
+
+        // Smooth scroll behavior for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
