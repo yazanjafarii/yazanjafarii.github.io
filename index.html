@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BodyMind Academy - Pain Science, Dopamine & Neuroplasticity</title>
+    <title>BodyMind Academy - 3D Anatomy</title>
     <style>
         * {
             margin: 0;
@@ -16,7 +16,6 @@
             background: linear-gradient(135deg, #0f1419 0%, #1a1f2e 50%, #0f1419 100%);
             color: #e0e0e0;
             overflow-x: hidden;
-            position: relative;
         }
 
         /* ===== SCROLL PROGRESS BAR ===== */
@@ -28,29 +27,16 @@
             background: linear-gradient(90deg, #7c3aed 0%, #ec4899 100%);
             width: 0%;
             z-index: 1000;
-            transition: width 0.1s ease-out;
         }
 
-        /* ===== ANATOMICAL BACKGROUND CONTAINER ===== */
-        #anatomyContainer {
+        /* ===== 3D CANVAS ===== */
+        #canvas3d {
             position: fixed;
-            top: 50%;
-            left: 50%;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: 100%;
-            pointer-events: none;
+            height: 100vh;
             z-index: 1;
-        }
-
-        #anatomySVG {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-
-        /* Individual particle styles for explosion */
-        .anatomy-particle {
-            position: fixed;
             pointer-events: none;
         }
 
@@ -59,8 +45,10 @@
             background: rgba(15, 20, 25, 0.95);
             backdrop-filter: blur(10px);
             padding: 1.5rem 2rem;
-            position: sticky;
+            position: fixed;
             top: 0;
+            left: 0;
+            right: 0;
             z-index: 500;
             border-bottom: 1px solid rgba(124, 58, 237, 0.2);
             display: flex;
@@ -104,6 +92,7 @@
             position: relative;
             z-index: 10;
             padding: 2rem;
+            margin-top: 80px;
         }
 
         .hero h1 {
@@ -401,7 +390,6 @@
             font-size: 0.9rem;
         }
 
-        /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
             nav {
                 gap: 1rem;
@@ -423,10 +411,6 @@
             .pricing-section h2 {
                 font-size: 2rem;
             }
-
-            footer {
-                padding: 2rem 1rem;
-            }
         }
     </style>
 </head>
@@ -435,82 +419,8 @@
     <!-- Scroll Progress Bar -->
     <div id="scrollProgressBar"></div>
 
-    <!-- Anatomical Background Container -->
-    <div id="anatomyContainer">
-        <svg id="anatomySVG" viewBox="0 0 800 1200" xmlns="http://www.w3.org/2000/svg">
-            <!-- LAYER 1: FULL SKELETON & ORGANS (Macro) -->
-            <g id="layer-1" class="anatomy-layer" opacity="1">
-                <!-- Skull -->
-                <ellipse cx="400" cy="120" rx="45" ry="55" fill="none" stroke="#7c3aed" stroke-width="1.5" opacity="0.6" class="particle" data-id="skull"/>
-                
-                <!-- Spine -->
-                <line x1="400" y1="175" x2="400" y2="600" stroke="#7c3aed" stroke-width="2" opacity="0.5" class="particle" data-id="spine"/>
-                <circle cx="400" cy="200" r="8" fill="none" stroke="#7c3aed" stroke-width="1" opacity="0.5" class="particle" data-id="vertebra"/>
-                <circle cx="400" cy="240" r="8" fill="none" stroke="#7c3aed" stroke-width="1" opacity="0.5" class="particle" data-id="vertebra"/>
-                <circle cx="400" cy="280" r="8" fill="none" stroke="#7c3aed" stroke-width="1" opacity="0.5" class="particle" data-id="vertebra"/>
-                <circle cx="400" cy="320" r="8" fill="none" stroke="#7c3aed" stroke-width="1" opacity="0.5" class="particle" data-id="vertebra"/>
-                <circle cx="400" cy="360" r="8" fill="none" stroke="#7c3aed" stroke-width="1" opacity="0.5" class="particle" data-id="vertebra"/>
-                
-                <!-- Ribcage -->
-                <path d="M 350 240 Q 300 280 320 340" fill="none" stroke="#7c3aed" stroke-width="1.5" opacity="0.5" class="particle" data-id="rib"/>
-                <path d="M 450 240 Q 500 280 480 340" fill="none" stroke="#7c3aed" stroke-width="1.5" opacity="0.5" class="particle" data-id="rib"/>
-                
-                <!-- Brain -->
-                <ellipse cx="400" cy="100" rx="35" ry="40" fill="none" stroke="#ec4899" stroke-width="2" opacity="0.6" class="particle" data-id="brain"/>
-                
-                <!-- Heart -->
-                <path d="M 380 300 Q 400 290 420 300 L 400 340 Z" fill="none" stroke="#ec4899" stroke-width="2" opacity="0.6" class="particle" data-id="heart"/>
-                
-                <!-- Lungs -->
-                <ellipse cx="340" cy="300" rx="25" ry="50" fill="none" stroke="#7c3aed" stroke-width="1.5" opacity="0.5" class="particle" data-id="lung"/>
-                <ellipse cx="460" cy="300" rx="25" ry="50" fill="none" stroke="#7c3aed" stroke-width="1.5" opacity="0.5" class="particle" data-id="lung"/>
-                
-                <!-- Arms -->
-                <line x1="340" y1="240" x2="250" y2="280" stroke="#7c3aed" stroke-width="2" opacity="0.5" class="particle" data-id="arm"/>
-                <line x1="460" y1="240" x2="550" y2="280" stroke="#7c3aed" stroke-width="2" opacity="0.5" class="particle" data-id="arm"/>
-                
-                <!-- Legs -->
-                <line x1="380" y1="600" x2="360" y2="750" stroke="#7c3aed" stroke-width="2" opacity="0.5" class="particle" data-id="leg"/>
-                <line x1="420" y1="600" x2="440" y2="750" stroke="#7c3aed" stroke-width="2" opacity="0.5" class="particle" data-id="leg"/>
-            </g>
-
-            <!-- LAYER 2: MUSCULAR SYSTEM -->
-            <g id="layer-2" class="anatomy-layer" opacity="0">
-                <!-- Muscles with particle class -->
-                <path d="M 380 180 Q 350 220 360 280 L 440 280 Q 450 220 420 180 Z" fill="none" stroke="#ec4899" stroke-width="2" opacity="0.7" class="particle" data-id="trapezius"/>
-                <path d="M 360 240 Q 330 300 340 360 L 460 360 Q 470 300 440 240 Z" fill="none" stroke="#7c3aed" stroke-width="2" opacity="0.7" class="particle" data-id="pecs"/>
-                <line x1="385" y1="360" x2="385" y2="540" stroke="#ec4899" stroke-width="3" opacity="0.6" class="particle" data-id="abs"/>
-                <line x1="415" y1="360" x2="415" y2="540" stroke="#ec4899" stroke-width="3" opacity="0.6" class="particle" data-id="abs"/>
-                <ellipse cx="300" cy="320" rx="15" ry="40" fill="none" stroke="#ec4899" stroke-width="2" opacity="0.7" class="particle" data-id="biceps"/>
-                <ellipse cx="500" cy="320" rx="15" ry="40" fill="none" stroke="#ec4899" stroke-width="2" opacity="0.7" class="particle" data-id="biceps"/>
-            </g>
-
-            <!-- LAYER 3: FIBERS -->
-            <g id="layer-3" class="anatomy-layer" opacity="0">
-                <line x1="380" y1="300" x2="420" y2="320" stroke="#ec4899" stroke-width="1.5" opacity="0.7" class="particle" data-id="fiber"/>
-                <line x1="385" y1="300" x2="425" y2="320" stroke="#ec4899" stroke-width="1.5" opacity="0.7" class="particle" data-id="fiber"/>
-                <line x1="390" y1="300" x2="430" y2="320" stroke="#ec4899" stroke-width="1.5" opacity="0.7" class="particle" data-id="fiber"/>
-                <line x1="360" y1="350" x2="440" y2="380" stroke="#7c3aed" stroke-width="1" opacity="0.6" class="particle" data-id="myofibril"/>
-                <line x1="363" y1="350" x2="443" y2="380" stroke="#7c3aed" stroke-width="1" opacity="0.6" class="particle" data-id="myofibril"/>
-            </g>
-
-            <!-- LAYER 4: CELLS -->
-            <g id="layer-4" class="anatomy-layer" opacity="0">
-                <circle cx="400" cy="350" r="80" fill="none" stroke="#7c3aed" stroke-width="1" opacity="0.5" class="particle" data-id="cell"/>
-                <circle cx="400" cy="350" r="35" fill="none" stroke="#ec4899" stroke-width="1.5" opacity="0.7" class="particle" data-id="nucleus"/>
-                <ellipse cx="340" cy="300" rx="15" ry="25" fill="none" stroke="#7c3aed" stroke-width="1.5" opacity="0.7" class="particle" data-id="mitochondria"/>
-                <ellipse cx="460" cy="300" rx="15" ry="25" fill="none" stroke="#7c3aed" stroke-width="1.5" opacity="0.7" class="particle" data-id="mitochondria"/>
-            </g>
-
-            <!-- LAYER 5: MOLECULAR -->
-            <g id="layer-5" class="anatomy-layer" opacity="0">
-                <circle cx="350" cy="300" r="8" fill="none" stroke="#7c3aed" stroke-width="1" class="particle" data-id="protein"/>
-                <circle cx="400" cy="280" r="6" fill="none" stroke="#7c3aed" stroke-width="1" class="particle" data-id="protein"/>
-                <circle cx="300" cy="350" r="6" fill="none" stroke="#7c3aed" stroke-width="1" class="particle" data-id="protein"/>
-                <circle cx="500" cy="350" r="6" fill="none" stroke="#7c3aed" stroke-width="1" class="particle" data-id="protein"/>
-            </g>
-        </svg>
-    </div>
+    <!-- 3D Canvas -->
+    <canvas id="canvas3d"></canvas>
 
     <!-- HEADER -->
     <header>
@@ -656,6 +566,9 @@
         </div>
     </footer>
 
+    <!-- Three.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
     <script>
         // ===== SCROLL PROGRESS BAR =====
         const scrollProgressBar = document.getElementById('scrollProgressBar');
@@ -665,65 +578,165 @@
             scrollProgressBar.style.width = scrollPercentage + '%';
         });
 
-        // ===== ANATOMICAL ZOOM, ROTATION & EXPLOSION =====
-        const anatomySVG = document.getElementById('anatomySVG');
-        const anatomyContainer = document.getElementById('anatomyContainer');
-        const layers = document.querySelectorAll('.anatomy-layer');
+        // ===== THREE.JS 3D ANATOMY =====
+        const canvas = document.getElementById('canvas3d');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setClearColor(0x000000, 0);
+        camera.position.z = 5;
+
+        // Create anatomical layers
+        const layers = [];
+
+        // Skeleton (White)
+        const skeletonGeometry = new THREE.IcosahedronGeometry(1.5, 4);
+        const skeletonMaterial = new THREE.MeshPhongMaterial({ 
+            color: 0xe8e8e8,
+            emissive: 0x222222,
+            wireframe: false,
+            opacity: 0.9,
+            transparent: true
+        });
+        const skeleton = new THREE.Mesh(skeletonGeometry, skeletonMaterial);
+        skeleton.scale.set(1, 1.3, 0.8);
+        scene.add(skeleton);
+        layers.push({ mesh: skeleton, originalScale: skeleton.scale.clone(), type: 'skeleton' });
+
+        // Muscle System (Red/Pink)
+        const muscleGeometry = new THREE.IcosahedronGeometry(1.3, 3);
+        const muscleMaterial = new THREE.MeshPhongMaterial({ 
+            color: 0xe74c3c,
+            emissive: 0x5a1a1a,
+            wireframe: false,
+            opacity: 0.7,
+            transparent: true
+        });
+        const muscles = new THREE.Mesh(muscleGeometry, muscleMaterial);
+        muscles.scale.set(0.95, 1.2, 0.75);
+        scene.add(muscles);
+        layers.push({ mesh: muscles, originalScale: muscles.scale.clone(), type: 'muscle' });
+
+        // Nervous System (Cyan/Blue lines)
+        const nervousGroup = new THREE.Group();
+        const nerveMaterial = new THREE.LineBasicMaterial({ color: 0x00d9ff, linewidth: 2 });
         
-        window.addEventListener('scroll', () => {
-            const scrollProgress = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+        // Create nerve lines
+        for (let i = 0; i < 15; i++) {
+            const points = [];
+            const startX = (Math.random() - 0.5) * 2;
+            const startY = (Math.random() - 0.5) * 2.5;
+            points.push(new THREE.Vector3(startX, startY, 0));
             
-            // Rotation (360 degrees over full scroll)
-            const rotation = scrollProgress * 360;
-            
-            // Zoom in from 1 to 1.5x
-            const scale = 1 + (scrollProgress * 0.5);
-            
-            // EXPLOSION EFFECT - particles spread outward after 70% scroll
-            if (scrollProgress > 0.7) {
-                const explosionIntensity = (scrollProgress - 0.7) / 0.3; // 0 to 1 over last 30%
-                anatomySVG.style.opacity = Math.max(0, 1 - explosionIntensity * 0.8);
-                
-                // Spread particles outward with increasing randomness
-                const particles = document.querySelectorAll('.particle');
-                particles.forEach((particle, index) => {
-                    const angle = (index / particles.length) * Math.PI * 2;
-                    const distance = explosionIntensity * 400;
-                    const translateX = Math.cos(angle) * distance;
-                    const translateY = Math.sin(angle) * distance;
-                    
-                    particle.style.transform = `translate(${translateX}px, ${translateY}px) scale(${1 + explosionIntensity * 0.5})`;
-                    particle.style.opacity = Math.max(0, 1 - explosionIntensity * 1.5);
-                });
-            } else {
-                // Normal zoom & rotation
-                anatomySVG.style.opacity = 0.25;
-                anatomySVG.style.transform = `translate(-50%, -50%) rotate(${rotation}deg) scale(${scale})`;
-                
-                // Reset particle positions
-                const particles = document.querySelectorAll('.particle');
-                particles.forEach(particle => {
-                    particle.style.transform = 'translate(0, 0) scale(1)';
-                    particle.style.opacity = '';
-                });
+            for (let j = 0; j < 8; j++) {
+                points.push(new THREE.Vector3(
+                    startX + Math.random() * 2,
+                    startY + Math.random() * 2,
+                    Math.random() - 0.5
+                ));
             }
             
-            // Layer visibility progression
-            const layerProgress = scrollProgress * 5;
+            const geometry = new THREE.BufferGeometry().setFromPoints(points);
+            const line = new THREE.Line(geometry, nerveMaterial);
+            nervousGroup.add(line);
+        }
+        scene.add(nervousGroup);
+        layers.push({ mesh: nervousGroup, type: 'nervous' });
+
+        // Cardiovascular System (Red lines)
+        const cardioGroup = new THREE.Group();
+        const cardioMaterial = new THREE.LineBasicMaterial({ color: 0xff6b6b, linewidth: 1.5 });
+        
+        for (let i = 0; i < 10; i++) {
+            const points = [];
+            const startAngle = (i / 10) * Math.PI * 2;
+            const startX = Math.cos(startAngle) * 1.5;
+            const startY = Math.sin(startAngle) * 1.5;
             
-            layers.forEach((layer, index) => {
-                const layerStart = index / 5;
-                const layerEnd = (index + 1) / 5;
-                
-                if (scrollProgress >= layerStart && scrollProgress < layerEnd) {
-                    const localProgress = (scrollProgress - layerStart) / (layerEnd - layerStart);
-                    layer.style.opacity = localProgress;
-                } else if (scrollProgress >= layerEnd) {
-                    layer.style.opacity = 1;
-                } else {
-                    layer.style.opacity = 0;
-                }
+            points.push(new THREE.Vector3(startX, startY, 0));
+            
+            for (let j = 0; j < 6; j++) {
+                points.push(new THREE.Vector3(
+                    startX * (1 - j * 0.15),
+                    startY * (1 - j * 0.15),
+                    Math.sin(j) * 0.3
+                ));
+            }
+            
+            const geometry = new THREE.BufferGeometry().setFromPoints(points);
+            const line = new THREE.Line(geometry, cardioMaterial);
+            cardioGroup.add(line);
+        }
+        scene.add(cardioGroup);
+        layers.push({ mesh: cardioGroup, type: 'cardio' });
+
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        scene.add(ambientLight);
+
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        directionalLight.position.set(5, 5, 5);
+        scene.add(directionalLight);
+
+        const pointLight = new THREE.PointLight(0x7c3aed, 0.5);
+        pointLight.position.set(-5, -5, 3);
+        scene.add(pointLight);
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Continuous rotation
+            skeleton.rotation.x += 0.003;
+            skeleton.rotation.y += 0.005;
+            muscles.rotation.x += 0.003;
+            muscles.rotation.y += 0.005;
+            nervousGroup.rotation.x += 0.003;
+            nervousGroup.rotation.y += 0.005;
+            cardioGroup.rotation.x += 0.003;
+            cardioGroup.rotation.y += 0.005;
+
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Scroll-based layer visibility
+        window.addEventListener('scroll', () => {
+            const scrollProgress = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+
+            // Control layer visibility based on scroll
+            skeleton.material.opacity = Math.max(0.3, 0.9 - scrollProgress * 0.5);
+            muscles.material.opacity = Math.max(0.2, 0.7 - scrollProgress * 0.7);
+            
+            // Fade out nervous and cardio systems
+            nervousGroup.children.forEach(line => {
+                line.material.opacity = Math.max(0, 1 - scrollProgress * 1.5);
             });
+            
+            cardioGroup.children.forEach(line => {
+                line.material.opacity = Math.max(0, 1 - scrollProgress * 1.5);
+            });
+
+            // Layer separation
+            const separation = scrollProgress * 3;
+            skeleton.position.z = separation * 0.3;
+            muscles.position.z = separation * 0.2;
+            nervousGroup.position.z = separation * 0.1;
+            cardioGroup.position.z = -separation * 0.1;
+
+            // Scale effect
+            const scale = 1 - scrollProgress * 0.3;
+            skeleton.scale.copy(layers[0].originalScale).multiplyScalar(scale);
+            muscles.scale.copy(layers[1].originalScale).multiplyScalar(scale);
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
         });
 
         // ===== CONTENT BLOCK ANIMATIONS =====
